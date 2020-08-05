@@ -7,14 +7,28 @@ layout: default
     <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
   
-  <p>Hi! My name is Yunwei 
-    (<a href="https://www.youtube.com/watch?v=Dl6Cc_l1S1Q">yu-yin</a> way). 
-    <br>
-    {{site.description}}</p>
-  
+  <div class="introduction">
+    <table>
+      <tr>
+        <td><img src="../img/portfolio_pic.jpg" width="1000px"></td>
+        <td>
+          <h3>Hi! My name is Yunwei </h3>
+          <p>(<a href="https://www.youtube.com/watch?v=Dl6Cc_l1S1Q">yu-yin</a> way)
+          <br>
+          <br>
+          {{site.description}}
+          <br>
+          <br>
+          See my current and past projects <a href="#">here</a>. 
+          I love building fun projects, playing guitar, and meeting new people!
+          </p>
+        </td>
+      </tr>
+    </table>
+  </div>
 
   {%- if site.posts.size > 0 -%}
-    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
+    <h2 class="post-list-heading">{{ page.list_title | default: "Thoughts" }}</h2>
     <ul class="post-list">
       {%- for post in site.posts -%}
       <li>
