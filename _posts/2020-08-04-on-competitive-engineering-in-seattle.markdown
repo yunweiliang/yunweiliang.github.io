@@ -1,29 +1,39 @@
 ---
 layout: post
-title:  "On Competitive Engineering in Seattle"
+title:  "Work in Progress: Peas in a Book Pod"
 date:   2020-08-04 11:16:59 -0700
-categories: Social Commentary
+categories: Projects
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
-Jekyll requires blog post files to be named according to the following format:
+## Problem Space
 
-`YEAR-MONTH-DAY-title.MARKUP`
+Quarantine got me chasing after habbits.
 
-Where `YEAR` is a four-digit number, `MONTH` and `DAY` are both two-digit numbers, and `MARKUP` is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.
 
-Jekyll also offers powerful support for code snippets:
+I found myself to be a small subset of people who is fortunate enough to be surrounded by books gathered over the years. But not so much that I wanted to throw the so called "classics" out of my window.
 
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
+With the libraries closed during quarantine, I weigh between buying a new book or reading one on Overdrive (a library ebook app). 
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+I was raised to be conscious of subtle actions, such as physical book trading, that contribute to carbon footprint => don't buy a new book.
 
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+But I like disconnecting for a quiet afternoon with a book I can carry in my hands, with no WiFi or blue light => don't read an/ebook/audiobook.
+
+But libraries are closed!!
+
+Maybe I can make new friends through a book club! How? My friends don't read books, and I don't know anyone who reads books I like :(
+
+It was then I saw some people started getting books for each other on instagram within my friend groups: 
+
+> Buy me a book, share on social media as I did, and more people will buy you books!
+
+This gave me idea to utilize our existing network to build an unconventional book club that circulates our own books. Here are the problems with sharing books with your friends:
+
+> In a few months, I could no longer find my books and then discovered in their families donation pile. How disrespectful!
+
+> ...passionate about sharing - but also getting back - beloved books.
+
+Some people resort to the following solutions:
+
+> Jean Jacobs: a curse to those who don't return the books => all books returned.
+
+

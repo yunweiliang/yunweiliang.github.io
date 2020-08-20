@@ -3,10 +3,10 @@ layout: default
 ---
 
 <div class="home">
-  {%- if page.title -%}
+  <!-- {%- if page.title -%}
     <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
-  
+   -->
   <div class="introduction">
     <table>
       <tr>
@@ -19,7 +19,7 @@ layout: default
           {{site.description}}
           <br>
           <br>
-          See my current and past projects <a href="#">here</a>. 
+          See my work <a href="/my_work">here</a>. 
           I also like playing guitar and meeting new people!
           </p>
         </td>
@@ -27,26 +27,32 @@ layout: default
     </table>
   </div>
 
-  {%- if site.posts.size > 0 -%}
+
+
+  <!-- {%- if site.posts.size > 0 -%}
     <h2 class="post-list-heading">{{ page.list_title | default: "Thoughts" }}</h2>
     <ul class="post-list">
       {%- for post in site.posts -%}
+
+
       <li>
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
         <span class="post-meta">{{ post.date | date: date_format }}</span>
+
         <h3>
           <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
           </a>
         </h3>
+
         {%- if site.show_excerpts -%}
           {{ post.excerpt }}
         {%- endif -%}
       </li>
+
+      
       {%- endfor -%}
     </ul>
-
-    <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
-  {%- endif -%}
+  {%- endif -%} -->
 
 </div>
