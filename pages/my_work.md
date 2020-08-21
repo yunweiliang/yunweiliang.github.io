@@ -17,7 +17,7 @@ Builing a web app to circulate privately owned books between readers (Peas) in a
 
 Acting as liason between company partners and our organization. Leading the Corporate Relations Team and overseeing the SWE Hacks21 Hackathon, Company-Led Events, Industry Mentorship Program, etc. Introduced the first ever series of Industry-Focused Nights to encourage more diversified company demographics. 
 
-[Read more](https://jekyllrb.com/docs/home)
+[Read more](#)
 
 
 ## Past Work
