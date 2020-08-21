@@ -24,8 +24,6 @@ Not only was I faced with this problem, I was distracted with a thought about jo
 
 This gave me idea to **utilize our existing network and  circulate our own books in an unconventional book club**.
 
-![a free sketch of my brainstorming process](../../../../img/whiteboard_brainstorm.png)
-
 
 ## Problem Space
 
@@ -44,7 +42,10 @@ To ensure that all parties are commited to respectful rules, maybe we should get
 
 ## Technical Problem: Design a system to circulate owned books between a collection of readers in a pod.
 
-I decided to build a web app because a website has a wider reach than mobile apps, especially at its beginning with a small audience. I got inspiration from simply-designed web apps such as Kahoot, Tinder, and Uber. I kept in mind to implement only **one robust** main feature that characrizes this project before distracting myself with strectch goals. It also helps to keep the user interface clean and easy-to-follow.
+
+![a free sketch of my brainstorming process](../../../../img/whiteboard_brainstorm.png)
+
+I decided to build a web app because a website has a wider reach than mobile apps, especially at its beginning with a small audience. I got inspiration from simply-designed web apps such as Kahoot, Tinder, and Uber. I kept in mind to implement only **one robust** main feature that characrizes this project before distracting myself with stretch goals. It also helps to keep the user interface clean and easy-to-follow.
 
 ### Front End
 [prototype in progress](https://www.figma.com/proto/y1203BjQzYBTxTdXYUfkvM/Peas-in-a-Book-Pod?node-id=22%3A0&scaling=scale-down)
