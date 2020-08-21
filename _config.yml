@@ -23,9 +23,9 @@ title: Yunwei Liang
 email: yunweil1@cs.washington.edu
 description: >- # this means to ignore newlines until "baseurl:"
   This is my third year studying Computer Science at University
-  of Washington. I am a passionate advocate for female and minorities in engineering. 
-  I hope to forefront marginalized voices through a future career in software 
-  engineering and contribute to reaserch to build a healthy, happy, and fair society.
+  of Washington. I am a passionate advocate for women and minorities in engineering. 
+  I hope to champion the underrepresented female leadership through a future career in software 
+  engineering and contribute to reaserch to build a happy society.
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
