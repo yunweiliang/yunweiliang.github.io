@@ -12,8 +12,7 @@ categories: Projects
 
 Quarantine got me chasing after habbits, such as picking up reading again!
 
-
-I found myself to be a small subset of people who is fortunate enough to be surrounded by books gathered over the years. But not so much that I wanted to throw the so called "classics" out of my window. With the libraries closed during quarantine, I weigh between buying a new book or reading one on Overdrive (a library ebook app). I was faced with a dilemma:
+I found myself to be a small subset of people fortunate to be surrounded by books gathered over the years. But not so fortunate enough that I wanted to throw the so called "classics" out of my window. With the libraries closed during quarantine, I weigh between buying a new book or reading one on Overdrive (a library ebook app). I was faced with a dilemma:
 
 I was raised to be conscious of subtle actions, such as physical book trading, that contribute to carbon footprint. Therefore, I didn't buy a new book. Since libraries are closed, I didn't find another physical book to read.
 
