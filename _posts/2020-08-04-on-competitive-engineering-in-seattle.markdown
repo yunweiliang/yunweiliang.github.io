@@ -7,9 +7,6 @@ categories: Projects
 
 ![a free sketch of my brainstorming process](../../../../img/landing_page.png)
 
-
-## Background
-
 Quarantine got me chasing after habbits, such as picking up reading again!
 
 I found myself to be a small subset of people fortunate to be surrounded by books gathered over the years. But not so fortunate enough that I wanted to throw the so called "classics" out of my window. With the libraries closed during quarantine, I weigh between buying a new book or reading one on Overdrive (a library ebook app). I was faced with a dilemma:
@@ -40,23 +37,20 @@ Some people resort to the following solutions:
 
 To ensure that all parties are commited to respectful rules, maybe we should get all parties invested in **a giant book exchange**.
 
-## Technical Problem: Design a system to circulate owned books between a collection of readers in a pod.
-
-
 ![a free sketch of my brainstorming process](../../../../img/whiteboard_brainstorm.png)
+
+## Technical Problem: Design a system to circulate owned books between a collection of readers in a pod.
 
 I decided to build a web app because a website has a wider reach than mobile apps, especially at its beginning with a small audience. I got inspiration from simply-designed web apps such as Kahoot, Tinder, and Uber. I kept in mind to implement only **one robust** main feature that characrizes this project before distracting myself with stretch goals. It also helps to keep the user interface clean and easy-to-follow.
 
-I decided to use the Angular Framework because I recently learned it at a hackathon and look forward to exploring it further in building a web app. I am choosing Firestore to keep a scalable database of the information outlined in the classes below.
-
-### Front End
 [prototype in progress](https://www.figma.com/proto/y1203BjQzYBTxTdXYUfkvM/Peas-in-a-Book-Pod?node-id=22%3A0&scaling=scale-down)
 
 [figma wireframe](https://www.figma.com/file/y1203BjQzYBTxTdXYUfkvM/Peas-in-a-Book-Pod?node-id=0%3A1)
 
-### Backend
+I decided to use the **Angular Framework** because I recently learned it at a hackathon and look forward to exploring it further in building a web app. I am choosing **Firestore** to keep a scalable database of the information outlined in the classes below:
 
 ```
+//pseudocode in typescript
 class Reader {
     String uid;
     String name;
@@ -94,11 +88,14 @@ class Pod {
 
     /* 
     Brute Force: recursive backtracking to find best combination to reduce total wait time of everybody in the cycle of a pod. Stretch goal: once somebody finishes, somebody else can submit new book into the cycle.
+
+    => maybe explore a DP solution?
     */
 
 }
 
 ```
-What I am working on right now is solving the problem of keeping track of the book assignments in a pod. In other words, I'm thinking about how I can design a pod class to circulate the books most efficiently.
+What I am working on right now is solving the problem of keeping track of the book assignments in a pod. In other words, I'm thinking about how I can design the Pod class to circulate the books most efficiently.
 
+If you have thoughts/suggestions you would like to share with me, feel free to reach out! I'm down to just chat about ideas and meeting people too :)
  
