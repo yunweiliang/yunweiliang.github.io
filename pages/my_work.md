@@ -10,7 +10,7 @@ permalink: /my_work
 
 Builing a web app to circulate privately owned books between readers (Peas) in a group, called a "Book Pod." Designed an efficient exchange algorithm to accommodate every members who read at different pace and reducing the wait time between each books by matching strategically who gets which book at each point in the cycle. 
 
-[Read more](https://jekyllrb.com/docs/home)
+[Read more](../projects/2020/08/04/on-competitive-engineering-in-seattle.html)
 
 
 #### Corporate in Society of Women Engineers at University of Washington (SWE at UW)

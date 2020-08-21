@@ -5,8 +5,10 @@ date:   2020-08-04 11:16:59 -0700
 categories: Projects
 ---
 
+![a free sketch of my brainstorming process](../../../../img/whiteboard_brainstorm.png)
 
-![a free sketch of my brainstorming process](img/whiteboard_brainstorm.png)
+
+## Background
 
 Quarantine got me chasing after habbits, such as picking up reading again!
 
@@ -23,6 +25,11 @@ Not only was I faced with this problem, I was distracted with a thought about jo
 
 This gave me idea to **utilize our existing network and  circulate our own books in an unconventional book club**.
 
+![a free sketch of my brainstorming process](../../../../img/whiteboard_brainstorm.png)
+
+
+## Problem Space
+
 There're no shortage of readers who are happy to lend books to their friends and borrow from others to build a literate, tight-knit community. The challenges are that they are not only
 
 > ...passionate about sharing - but also getting back - beloved books.
@@ -36,15 +43,17 @@ Some people resort to the following solutions:
 
 To ensure that all parties are commited to respectful rules, maybe we should get all parties invested in **a giant book exchange**.
 
-### Problem: Design a system to circulate owned books between a collection of readers in a pod.
+## Technical Problem: Design a system to circulate owned books between a collection of readers in a pod.
 
+I decided to build a web app because a website has a wider reach than mobile apps, especially at its beginning with a small audience. I got inspiration from simply-designed web apps such as Kahoot, Tinder, and Uber. I kept in mind to implement only **one robust** main feature that characrizes this project before distracting myself with strectch goals. It also helps to keep the user interface clean and easy-to-follow.
 
 ### Front End
-[prototype](https://www.figma.com/proto/y1203BjQzYBTxTdXYUfkvM/Peas-in-a-Book-Pod?node-id=22%3A0&scaling=scale-down)
+[prototype in progress](https://www.figma.com/proto/y1203BjQzYBTxTdXYUfkvM/Peas-in-a-Book-Pod?node-id=22%3A0&scaling=scale-down)
 
 [figma wireframe](https://www.figma.com/file/y1203BjQzYBTxTdXYUfkvM/Peas-in-a-Book-Pod?node-id=0%3A1)
 
 ### Backend
+I decided to use the Angular Framework because I recently learned it at a hackathon and look forward to exploring it further in building a web app. 
 ```
 class Reader {
     String uid;
@@ -90,4 +99,5 @@ class Pod {
 ```
 What I am working on right now is solving the problem of keeping track of the book assignments in a pod. In other words, I'm thinking about how I can design a pod class to circulate the books most efficiently.
 
-
+#### For database design
+Currently, I am looking into using Firestore to keep a database of the information outlined in the classes above. I 
