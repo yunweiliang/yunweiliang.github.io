@@ -11,7 +11,7 @@ I picked up reading again in quarantine.
 
 I found myself to be a small subset of people fortunate to be surrounded by books gathered over the years. With the libraries closed during quarantine, I weigh between buying a new book or reading one on Overdrive (a library ebook app).
 
-I was raised to be conscious of subtle actions, such as physical book trading, that contribute to carbon footprint. On the other hand, I like disconnecting for a quiet afternoon with a book I can carry in my hands, with no WiFi or blue light. 
+I was raised to be conscious of subtle actions, such as physical book trading, that contribute to the carbon footprint. On the other hand, I like disconnecting for a quiet afternoon with a book I can carry in my hands, with no WiFi or blue light. 
 
 At the same time, I thought about joining a book club to make some new friends. Then, I started seeing people getting books for strangers on Instagram: 
 
