@@ -3,6 +3,7 @@ layout: post
 title:  "Work in Progress: Peas in a Book Pod"
 date:   2020-08-04
 categories: Projects
+description: "For educational purposes, I am building a web application to practice my system design skills and to learn a new framework. The goal of the application is to circulate privately owned books between readers in a book pod. I want to design an efficient exchange algorithm to accommodate every members who read at different pace and to reduce the wait time between each books by matching strategically who gets which book at each point in the cycle. This is a work in progress."
 ---
 
 ![a free sketch of my brainstorming process](../../../../assets/img/landing_page.png)

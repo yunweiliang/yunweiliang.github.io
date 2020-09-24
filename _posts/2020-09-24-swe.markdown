@@ -1,0 +1,28 @@
+---
+layout: post
+title:  "A Lesson on Understanding"
+date:   2020-09-24
+categories: Projects
+---
+In Society of Women Engineers, my favorite event is when I tabled for our k-12 SWENext program at the Introduce a Girl to Engineering Event back in February. It was at this event when I decided to be vocal even though I never thought that I can be good at talking to people. But once I started chatting with the kids and parents, I realized I just have to speak with the intention to help others understand my thought process and to listen with the **intention to understand**.
+
+I was an event planner in the Outreach Committee at the time. The committee and I were getting a little discouraged after several unsuccessful projects with rural school districts in Washington. These high schools are not very responsive, mainly because of a lack of funding for outreach projects. On our side, focusing on branding and "helping" prevented us from understanding their backgrounds, statistics, history and from addressing their immediate needs. From this role, I saw how **making smart decisions and conducting research** before planning a program is so important. 
+
+Today, I carry this lesson with me as the Vice President of Corporate Relations.
+
+When speaking to companies, I try to understand their goals and have a good conversation before diving into partnership opportunities. I want to understand what is a win for the companies, connect them to our goals, and find common grounds. A good understanding helps creating a robust platform for our members to get industry exposure, especially in a horrible job market right now. I aim to build lasting relationships for years to come.
+
+I expect the same for my Corporate Relations Committee. I value a strong team work environment and encourage my officers to have conversations outside of our team meetings. I motivate them to network with people who have hosted similar events. We also get feedback from audience for any events they are hosting. When speaking to my team, I like to communicate the big picture to help my officers to make decisions strategically and independently. My goal is to see them become leaders themselves. 
+
+___
+
+
+SWE taught me more than I could cover in a short article. Here are some other things I learned:
+* Leading a team requires more than communication. It needs smart decisions about when to leave out details and to have directed, concise conversations too.
+* Delegation is about making people feel valued and preventing burn-out.
+* The problem with ambitious teammates is that they can sometimes over-commit. They won't ask for help unless I check-in regularly. It is crucial for me to check-in with my committees personally to make sure they are comfortable with me and to prevent the team from falling apart.
+* It is almost impossible to not make mistakes in an unfamiliar, challenging leadership position. I am encouraged to acknowledge when I have made a mistake, consult the team, ask for feedback, and network with peers from other collegiate secions for support.
+* Any meetings over 1 hr. is going to lose people's attention! 30 - 45 min is the sweet spot.
+* And many more!
+
+If you are a SWE leader/member, please feel free to reach out to me at [yunweil1@cs.washington.edu](yunweil1@cs.washington.edu) anytime to chat. If you are not, please still do so if you'd like :)
