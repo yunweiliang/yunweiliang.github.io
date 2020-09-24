@@ -35,22 +35,3 @@ Acting as liason between company partners and our organization. Leading the Corp
 
 [Read more](#)
 
-
-### Kohlberg Lab    10.2019 - 6.2020
-
-### Informatics Teaching Assistant  12.2019 - 6.2020
-
-### Outreach in Society of Women Engineers at Unviersity of Washington (SWE at UW) 10.2019 - 6.2020
-
-Establishing local high school SWE Outreach Programs called SWENext. Planned weekly sessions and recruited at the "Introduce a Girl to Engineering" event, partnering with Women in Chemical Engineering at UW.
-
-### Pipeline Tutor 1.2020 - 3.2020
-
-### Associated Students of the University of Washington (ASUW) Ambassador  10.2020-12.2020
-
-
-
-## Skill Set
-Java, Python, R, HTML, CSS, JavaScript
-Angular, Ruby, Racket, Flutter, SQL,
-Google Cloud. 
