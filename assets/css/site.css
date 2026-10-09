@@ -1,11 +1,11 @@
 /* ---------- Tokens ---------- */
 :root {
-  --bg: #fbfaf7;
-  --text: #1d1c1a;
-  --muted: #5f5b54;
-  --faint: #e6e2da;
-  --accent: #8a3f22;
-  --notice-bg: #f3efe6;
+  --bg: #fdf6e3;
+  --text: #073642;
+  --muted: #4f6168;
+  --faint: #e6dfca;
+  --accent: #1a6397;
+  --notice-bg: #eee8d5;
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --measure: 38rem;
@@ -14,23 +14,23 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #171614;
-    --text: #e7e3db;
-    --muted: #a8a299;
-    --faint: #2f2c28;
-    --accent: #e0a07e;
-    --notice-bg: #221f1b;
+    --bg: #002b36;
+    --text: #e4e2d6;
+    --muted: #9fb0b2;
+    --faint: #0f3d49;
+    --accent: #6fb6e8;
+    --notice-bg: #073642;
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #171614;
-  --text: #e7e3db;
-  --muted: #a8a299;
-  --faint: #2f2c28;
-  --accent: #e0a07e;
-  --notice-bg: #221f1b;
+  --bg: #002b36;
+  --text: #e4e2d6;
+  --muted: #9fb0b2;
+  --faint: #0f3d49;
+  --accent: #6fb6e8;
+  --notice-bg: #073642;
   color-scheme: dark;
 }
 
@@ -43,6 +43,10 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   background: var(--bg);
   color: var(--text);
@@ -82,10 +86,8 @@ img { max-width: 100%; height: auto; }
 }
 .skip-link:focus { left: 1rem; }
 
-/* ---------- Header / footer ---------- */
-.site-header,
-main,
-.site-footer {
+/* ---------- Layout ---------- */
+main {
   max-width: calc(var(--measure) + 2.5rem);
   margin: 0 auto;
   padding-left: 1.25rem;
@@ -93,27 +95,10 @@ main,
 }
 
 .site-header {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.25rem;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-  font-family: var(--sans);
-  font-size: 0.875rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
-
-.site-name {
-  color: var(--text);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  text-decoration: none;
-  margin-right: auto;
-}
-
-.site-nav { display: flex; gap: 1.25rem; }
-.site-nav a { color: var(--muted); text-decoration: none; }
-.site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--text); }
 
 .theme-toggle {
   display: inline-flex;
@@ -121,7 +106,6 @@ main,
   justify-content: center;
   width: 2.25rem;
   height: 2.25rem;
-  margin-right: -0.5rem;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -138,27 +122,25 @@ main,
   :root:not([data-theme="light"]) .theme-toggle .icon-moon { display: none; }
 }
 
-@media (max-width: 30rem) {
-  .site-name { flex-basis: calc(100% - 3rem); }
-  .site-nav { order: 3; flex-basis: 100%; }
-}
-
 main {
-  padding-top: 3rem;
+  padding-top: 5rem;
   padding-bottom: 4rem;
 }
 
+main { flex: 1 0 auto; width: 100%; }
+
 .site-footer {
-  padding-top: 2rem;
-  padding-bottom: 3rem;
-  border-top: 1px solid var(--faint);
+  width: 100%;
+  max-width: calc(var(--measure) + 2.5rem);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
   font-family: var(--sans);
   font-size: 0.8125rem;
   color: var(--muted);
 }
 .site-footer a { color: var(--muted); }
 .site-footer a:hover { color: var(--text); }
-.site-footer span { margin: 0 0.4rem; }
+.site-footer span { margin: 0 0.5rem; }
 
 /* ---------- Typography ---------- */
 h1, h2, h3, h4 {
@@ -276,13 +258,11 @@ a.footnote {
 .footnotes li:target, sup:target { background: var(--notice-bg); border-radius: 3px; }
 .footnotes li, sup { scroll-margin-top: 1.5rem; }
 
-.essay-footer {
-  margin-top: 3rem;
-  font-family: var(--sans);
-  font-size: 0.875rem;
-}
-
-/* ---------- Lists of essays / projects ---------- */
+/* ---------- Home ---------- */
+.home h1 { font-size: clamp(2.75rem, 9vw, 4rem); margin-bottom: 1.5rem; }
+.home h1 span { margin-left: 0.3em; font-size: 0.35em; letter-spacing: 0.1em; color: var(--muted); }
+/* Chinese text uses a serif designed to pair with the Latin serif. */
+[lang="zh-Hans"] { font-family: "Noto Serif SC", "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", SimSun, serif; }
 .lede { font-size: 1.3rem; line-height: 1.6; }
 @media (max-width: 40rem) { .lede { font-size: 1.15rem; } }
 
@@ -303,32 +283,6 @@ a.footnote {
 .essay-list a:hover { color: var(--accent); }
 .essay-list p { margin: 0.3rem 0 0; color: var(--muted); font-size: 1rem; line-height: 1.55; }
 .essay-list .meta { margin-top: 0.4rem; font-size: 0.8125rem; }
-
-.links { list-style: none; padding: 0; margin: 0; }
-.links li { margin: 0.4rem 0; }
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.card {
-  display: block;
-  height: 100%;
-  padding: 1.25rem;
-  border: 1px solid var(--faint);
-  border-radius: 6px;
-  color: var(--text);
-  text-decoration: none;
-  transition: border-color 0.15s ease;
-}
-.card:hover { border-color: var(--muted); }
-.card h2 { margin: 0 0 0.4rem; font-size: 1.15rem; }
-.card p { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.95rem; line-height: 1.5; }
-.card .meta { color: var(--accent); }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }

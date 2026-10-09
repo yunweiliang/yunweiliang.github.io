@@ -2,25 +2,23 @@
 layout: default
 ---
 <section class="home">
-  <h1>{{ site.title }}</h1>
-  <p class="lede">
-    Hi, I’m Yunwei. This is where I write essays and keep track of the things I build.
-  </p>
+  <h1>Yunwei <span lang="zh-Hans">{{ site.name_zh }}</span></h1>
   <p>
-    The essays are longer pieces, written slowly. The projects page links to code on GitHub.
-    If you’re looking for my site from 2020, it’s still up as
+    My essays and projects from 2020 are on
     <a href="{{ '/archive/' | relative_url }}">my old site (2020)</a>.
+    You can also find me on <a href="https://github.com/{{ site.github_username }}">GitHub</a>
+    and <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}">LinkedIn</a>.
   </p>
-
-  <h2 class="section-title">Recent essays</h2>
-  {%- include essay-list.html limit=3 %}
-  <p><a href="{{ '/essays/' | relative_url }}">All essays →</a></p>
-
-  <h2 class="section-title">Elsewhere</h2>
-  <ul class="links">
-    <li><a href="{{ '/projects/' | relative_url }}">Projects</a></li>
-    <li><a href="https://github.com/{{ site.github_username }}">GitHub</a></li>
-    <li><a href="https://www.linkedin.com/in/{{ site.linkedin_username }}">LinkedIn</a></li>
-    <li><a href="{{ '/archive/' | relative_url }}">My old site (2020)</a></li>
+  {%- if site.posts.size > 0 %}
+  <h2 class="section-title">Essays</h2>
+  <ul class="essay-list">
+    {%- for essay in site.posts %}
+    <li>
+      <a href="{{ essay.url | relative_url }}">{{ essay.title | escape }}</a>
+      {%- if essay.summary %}<p>{{ essay.summary | escape }}</p>{% endif %}
+      <p class="meta"><time datetime="{{ essay.date | date_to_xmlschema }}">{{ essay.date | date: "%B %-d, %Y" }}</time></p>
+    </li>
+    {%- endfor %}
   </ul>
+  {%- endif %}
 </section>
