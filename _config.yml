@@ -5,6 +5,11 @@ url: "https://yunweiliang.github.io"
 baseurl: ""
 lang: en
 
+# Chinese text on the home page. Only these characters are downloaded from
+# the Chinese serif font, so the page stays fast; edit them here.
+name_zh: 芸玮
+tagline_zh: 芸芸众生皆有乐皆有苦
+
 # No theme: the layouts and CSS in this repo are the whole design.
 # (GitHub Pages would otherwise apply its default theme.)
 theme: null

@@ -6,7 +6,7 @@
   --faint: #e6dfca;
   --accent: #1a6397;
   --notice-bg: #eee8d5;
-  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", SimSun, serif;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --measure: 38rem;
   color-scheme: light;
@@ -242,6 +242,8 @@ a.footnote {
 /* ---------- Home ---------- */
 .home h1 { font-size: clamp(2.75rem, 9vw, 4rem); margin-bottom: 0.75rem; }
 .home h1 span { margin-left: 0.15em; }
+/* Chinese text uses a serif designed to pair with the Latin serif. */
+[lang="zh-Hans"] { font-family: "Noto Serif SC", "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", SimSun, serif; }
 .tagline {
   margin: 0 0 2.5rem;
   font-size: 0.8125rem;
