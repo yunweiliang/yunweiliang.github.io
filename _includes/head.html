@@ -20,11 +20,11 @@
     if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
   } catch (e) {}
 </script>
-{%- assign zh_text = site.name_zh | append: site.tagline_zh %}
+{%- assign zh_text = site.name_zh | default: "" %}
 {%- if zh_text != "" %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&display=swap&text={{ zh_text | url_encode }}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500&display=swap&text={{ zh_text | url_encode }}">
 {%- endif %}
 <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
 <link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
