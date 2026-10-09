@@ -1,0 +1,39 @@
+title: Yunwei Liang
+description: Essays and projects by Yunwei Liang.
+author: Yunwei Liang
+url: "https://yunweiliang.github.io"
+baseurl: ""
+lang: en
+
+# No theme: the layouts and CSS in this repo are the whole design.
+# (GitHub Pages would otherwise apply its default theme.)
+theme: null
+
+github_username: yunweiliang
+linkedin_username: yunweiliang
+
+# Essays live in _posts/ and are published at /essays/<slug>/
+permalink: /essays/:title/
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+  # The trailing U+FE0E keeps iOS from drawing the back-arrow as an emoji.
+  footnote_backlink: "&#8617;&#xFE0E;"
+  syntax_highlighter_opts:
+    disable: true
+
+plugins:
+  - jekyll-feed
+
+feed:
+  path: feed.xml
+
+exclude:
+  - README.md
+  - old-urls/README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .bundle
