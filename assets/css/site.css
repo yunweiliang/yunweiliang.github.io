@@ -244,8 +244,8 @@ a.footnote {
 .home h1 span { margin-left: 0.15em; }
 .tagline {
   margin: 0 0 2.5rem;
-  font-size: 1.35rem;
-  letter-spacing: 0.12em;
+  font-size: 0.8125rem;
+  letter-spacing: 0.2em;
   color: var(--muted);
 }
 .lede { font-size: 1.3rem; line-height: 1.6; }
