@@ -5,16 +5,11 @@ url: "https://yunweiliang.github.io"
 baseurl: ""
 lang: en
 
-# Chinese name on the home page. Only these characters are downloaded from
-# the Chinese serif font, so the page stays fast; edit them here.
-name_zh: 芸玮
-
 # No theme: the layouts and CSS in this repo are the whole design.
 # (GitHub Pages would otherwise apply its default theme.)
 theme: null
 
 github_username: yunweiliang
-linkedin_username: yunweiliang
 
 # Essays live in _posts/ and are published at /essays/<slug>/
 permalink: /essays/:title/
