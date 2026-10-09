@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="/archive/feed.xml" rel="self" type="application/atom+xml" /><link href="/archive/" rel="alternate" type="text/html" /><updated>2026-10-09T00:10:31+00:00</updated><id>/archive/feed.xml</id><title type="html">Yunwei Liang</title><subtitle>This is my third year studying Computer Science at University of Washington.  I am a passionate advocate for women and minorities in engineering.  I hope to champion the underrepresented female leadership through a future career in software  engineering and contribute to reaserch to build a happy society.</subtitle><entry><title type="html">A Lesson on Understanding</title><link href="/archive/projects/2020/09/24/swe.html" rel="alternate" type="text/html" title="A Lesson on Understanding" /><published>2020-09-24T00:00:00+00:00</published><updated>2020-09-24T00:00:00+00:00</updated><id>/archive/projects/2020/09/24/swe</id><content type="html" xml:base="/archive/projects/2020/09/24/swe.html"><![CDATA[<p>In Society of Women Engineers, my favorite event is when I tabled for our k-12 SWENext program at the Introduce a Girl to Engineering Event back in February. It was at this event when I decided to be vocal even though I never thought that I can be good at talking to people. But once I started chatting with the kids and parents, I realized I just have to speak with the intention to help others understand my thought process and to listen with the <strong>intention to understand</strong>.</p>
+
+<p>I was an event planner in the Outreach Committee at the time. The committee and I were getting a little discouraged after several unsuccessful projects with rural school districts in Washington. These high schools are not very responsive, mainly because of a lack of funding for outreach projects. On our side, focusing on branding and “helping” prevented us from understanding their backgrounds, statistics, history and from addressing their immediate needs. From this role, I saw how <strong>making smart decisions and conducting research</strong> before planning a program is so important.</p>
+
+<p>Today, I carry this lesson with me as the Vice President of Corporate Relations.</p>
+
+<p>When speaking to companies, I try to understand their goals and have a good conversation before diving into partnership opportunities. I want to understand what is a win for the companies, connect them to our goals, and find common grounds. A good understanding helps creating a robust platform for our members to get industry exposure, especially in a horrible job market right now. I aim to build lasting relationships for years to come.</p>
+
+<p>I expect the same for my Corporate Relations Committee. I value a strong team work environment and encourage my officers to have conversations outside of our team meetings. I motivate them to network with people who have hosted similar events. We also get feedback from audience for any events they are hosting. When speaking to my team, I like to communicate the big picture to help my officers to make decisions strategically and independently. My goal is to see them become leaders themselves.</p>
+
+<hr />
+
+<p>SWE taught me more than I could cover in a short article. Here are some other things I learned:</p>
+<ul>
+  <li>Leading a team requires more than communication. It needs smart decisions about when to leave out details and to have directed, concise conversations too.</li>
+  <li>Delegation is about making people feel valued and preventing burn-out.</li>
+  <li>The problem with ambitious teammates is that they can sometimes over-commit. They won’t ask for help unless I check-in regularly. It is crucial for me to check-in with my committees personally to make sure they are comfortable with me and to prevent the team from falling apart.</li>
+  <li>It is almost impossible to not make mistakes in an unfamiliar, challenging leadership position. I am encouraged to acknowledge when I have made a mistake, consult the team, ask for feedback, and network with peers from other collegiate secions for support.</li>
+  <li>Any meetings over 1 hr. is going to lose people’s attention! 30 - 45 min is the sweet spot.</li>
+  <li>And many more!</li>
+</ul>
+
+<p>If you are a SWE leader/member, please feel free to reach out to me at <a href="mailto:yunweil1@cs.washington.edu">yunweil1@cs.washington.edu</a> anytime to chat. If you are not, please still do so if you’d like :)</p>]]></content><author><name></name></author><category term="Projects" /><summary type="html"><![CDATA[In Society of Women Engineers, my favorite event is when I tabled for our k-12 SWENext program at the Introduce a Girl to Engineering Event back in February. It was at this event when I decided to be vocal even though I never thought that I can be good at talking to people. But once I started chatting with the kids and parents, I realized I just have to speak with the intention to help others understand my thought process and to listen with the intention to understand. I was an event planner in the Outreach Committee at the time. The committee and I were getting a little discouraged after several unsuccessful projects with rural school districts in Washington. These high schools are not very responsive, mainly because of a lack of funding for outreach projects. On our side, focusing on branding and “helping” prevented us from understanding their backgrounds, statistics, history and from addressing their immediate needs. From this role, I saw how making smart decisions and conducting research before planning a program is so important. Today, I carry this lesson with me as the Vice President of Corporate Relations. When speaking to companies, I try to understand their goals and have a good conversation before diving into partnership opportunities. I want to understand what is a win for the companies, connect them to our goals, and find common grounds. A good understanding helps creating a robust platform for our members to get industry exposure, especially in a horrible job market right now. I aim to build lasting relationships for years to come. I expect the same for my Corporate Relations Committee. I value a strong team work environment and encourage my officers to have conversations outside of our team meetings. I motivate them to network with people who have hosted similar events. We also get feedback from audience for any events they are hosting. When speaking to my team, I like to communicate the big picture to help my officers to make decisions strategically and independently. My goal is to see them become leaders themselves. SWE taught me more than I could cover in a short article. Here are some other things I learned: Leading a team requires more than communication. It needs smart decisions about when to leave out details and to have directed, concise conversations too. Delegation is about making people feel valued and preventing burn-out. The problem with ambitious teammates is that they can sometimes over-commit. They won’t ask for help unless I check-in regularly. It is crucial for me to check-in with my committees personally to make sure they are comfortable with me and to prevent the team from falling apart. It is almost impossible to not make mistakes in an unfamiliar, challenging leadership position. I am encouraged to acknowledge when I have made a mistake, consult the team, ask for feedback, and network with peers from other collegiate secions for support. Any meetings over 1 hr. is going to lose people’s attention! 30 - 45 min is the sweet spot. And many more! If you are a SWE leader/member, please feel free to reach out to me at yunweil1@cs.washington.edu anytime to chat. If you are not, please still do so if you’d like :)]]></summary></entry><entry><title type="html">Predicting Risk of Heart Disease with Different ML Models</title><link href="/archive/projects/2020/09/20/predicting-heart-disease.html" rel="alternate" type="text/html" title="Predicting Risk of Heart Disease with Different ML Models" /><published>2020-09-20T00:00:00+00:00</published><updated>2020-09-20T00:00:00+00:00</updated><id>/archive/projects/2020/09/20/predicting-heart-disease</id><content type="html" xml:base="/archive/projects/2020/09/20/predicting-heart-disease.html"><![CDATA[<p>CSE 163 Intermediate Data Programming (Winter 2020). I teamed up with two other classmates for the final project. Our <a href="https://courses.cs.washington.edu/courses/cse163/20wi/project/overview.html">assignment</a> was to investigate a research question by exercising the Python skills we have learned.</p>
+
+<p>Looking at the machine learning projects online for ideas, we stumbled upon research done by C. Beulah Christalin Latha and S. Carolin Jeeva on “Improving the accuracy of prediction of heart disease risk based on ensemble classification techniques” (<a href="https://www.sciencedirect.com/science/article/pii/S235291481830217X">publication</a>). We decided to use the same <a href="https://archive.ics.uci.edu/ml/datasets/Heart+Disease">Cleveland Heart Disease Dataset</a> that this study was conducted on.</p>
+
+<p>We chose to investigate the same problem space in a different capacity. Instead of perfecting a model to predict risk of heart disease, we wanted to:</p>
+
+<ol>
+  <li>Compare three existing classification models in the sklearn package (which we learned from class) and</li>
+  <li>Find the determinant feature in impacting the accuracy of the prediction model.</li>
+</ol>
+
+<p>Together, each of us implemented an ML model: Decision Tree Classifier, Random Forest Classifier, or Naive Bayes Classifier. In order to compare them, I was in charge of running a large amount of trials to find the average accuracy for each model.</p>
+
+<p>In hindsight, I shouldn’t have channeled my inner Java child and for-looped each trial 50 times in main().</p>
+
+<p>Fortunately, I saw that this is inefficient. I regained my senses and called upon a year of leetcode practice. I redesigned the class to compartmentalize different functionalities, specifically for answering the first (comparing models) vs. the second question (finding feature). To automate the trials, I edited many methods to be able to run many times while recording its results to be integrated into the graphing methods.</p>
+
+<p>Before Covid-19 enforced social distancing, we met up everyday in crowded undergrad libraries, apartment spaces, business school cafe, powered by Vietnamese rice cakes and ramen (a rare occasion energized not with lattes). Our 20-page report missed a point for overlooking a line of function comment. We didn’t dwell on it.</p>
+
+<p><a href="../../../../assets/Project_Part_2.pdf">Report: “Predicting an Individual’s Risk of Heart Disease Using Various Machine Learning Models”</a></p>
+
+<p><a href="https://github.com/yunweiliang/cse163-final-project">Repository</a> (see analyze_ml_models.py and main.py.)</p>]]></content><author><name></name></author><category term="Projects" /><summary type="html"><![CDATA[CSE 163 Intermediate Data Programming (Winter 2020). I teamed up with two other classmates for the final project. Our assignment was to investigate a research question by exercising the Python skills we have learned. Looking at the machine learning projects online for ideas, we stumbled upon research done by C. Beulah Christalin Latha and S. Carolin Jeeva on “Improving the accuracy of prediction of heart disease risk based on ensemble classification techniques” (publication). We decided to use the same Cleveland Heart Disease Dataset that this study was conducted on. We chose to investigate the same problem space in a different capacity. Instead of perfecting a model to predict risk of heart disease, we wanted to: Compare three existing classification models in the sklearn package (which we learned from class) and Find the determinant feature in impacting the accuracy of the prediction model. Together, each of us implemented an ML model: Decision Tree Classifier, Random Forest Classifier, or Naive Bayes Classifier. In order to compare them, I was in charge of running a large amount of trials to find the average accuracy for each model. In hindsight, I shouldn’t have channeled my inner Java child and for-looped each trial 50 times in main(). Fortunately, I saw that this is inefficient. I regained my senses and called upon a year of leetcode practice. I redesigned the class to compartmentalize different functionalities, specifically for answering the first (comparing models) vs. the second question (finding feature). To automate the trials, I edited many methods to be able to run many times while recording its results to be integrated into the graphing methods. Before Covid-19 enforced social distancing, we met up everyday in crowded undergrad libraries, apartment spaces, business school cafe, powered by Vietnamese rice cakes and ramen (a rare occasion energized not with lattes). Our 20-page report missed a point for overlooking a line of function comment. We didn’t dwell on it. Report: “Predicting an Individual’s Risk of Heart Disease Using Various Machine Learning Models” Repository (see analyze_ml_models.py and main.py.)]]></summary></entry><entry><title type="html">Work in Progress: Peas in a Book Pod</title><link href="/archive/projects/2020/08/04/peas-in-a-book-pod.html" rel="alternate" type="text/html" title="Work in Progress: Peas in a Book Pod" /><published>2020-08-04T00:00:00+00:00</published><updated>2020-08-04T00:00:00+00:00</updated><id>/archive/projects/2020/08/04/peas-in-a-book-pod</id><content type="html" xml:base="/archive/projects/2020/08/04/peas-in-a-book-pod.html"><![CDATA[<p><img src="../../../../assets/img/landing_page.png" alt="a free sketch of my brainstorming process" /></p>
+
+<p>I picked up reading again in quarantine.</p>
+
+<p>I found myself to be a small subset of people fortunate to be surrounded by books gathered over the years. With the libraries closed during quarantine, I weigh between buying a new book or reading one on Overdrive (a library ebook app).</p>
+
+<p>I was raised to be conscious of subtle actions, such as physical book trading, that contribute to the carbon footprint. On the other hand, I like disconnecting for a quiet afternoon with a book I can carry in my hands, with no WiFi or blue light.</p>
+
+<p>At the same time, I thought about joining a book club to make some new friends. Then, I started seeing people getting books for strangers on Instagram:</p>
+
+<blockquote>
+  <p>Buy me a book, share on social media as I did, and more people will buy you books!</p>
+</blockquote>
+
+<p>This gave me idea to <strong>utilize our existing network and circulate our own books in an unconventional book club</strong>.</p>
+
+<h2 id="problem-space">Problem Space</h2>
+
+<p>Many book hoarders are happy to lend to their friends and borrow from others to build a literate, tight-knit community. However, they are not only “passionate about sharing - but also getting back - beloved books.”</p>
+
+<p>Many encountered hateful, inconsiderate, forgetful friends:</p>
+<blockquote>
+  <p>In a few months, I could no longer find my books and then discovered in their families donation pile. How disrespectful!</p>
+</blockquote>
+
+<p>Some people resort to the following solutions:</p>
+
+<blockquote>
+  <p>Jean Jacobs wrote a curse to those who don’t return her books. All books were returned.</p>
+</blockquote>
+
+<p>To ensure that all parties are commited to respectful rules, maybe we should get all parties <strong>invested</strong> in a giant book exchange.</p>
+
+<p><img src="../../../../assets/img/whiteboard_brainstorm.png" alt="a free sketch of my brainstorming process" /></p>
+
+<h2 id="technical-problem-design-a-system-to-circulate-owned-books-between-a-collection-of-readers-in-a-pod">Technical Problem: Design a system to circulate owned books between a collection of readers in a pod.</h2>
+
+<p>I decided to build a web app because a website has a wider reach than mobile apps, especially at its beginning with a small audience. I got inspiration from simply-designed web apps such as Kahoot, Tinder, and Uber.</p>
+
+<p>I kept in mind to implement only <strong>one robust</strong> main feature that characrizes this project before distracting myself with stretch goals. I have a problem of being too ambitious too early. Focusing on one feature helps keep the user interface clean and easy-to-follow.</p>
+
+<p><a href="https://www.figma.com/proto/y1203BjQzYBTxTdXYUfkvM/Peas-in-a-Book-Pod?node-id=22%3A0&amp;scaling=scale-down">prototype in progress</a></p>
+
+<p><a href="https://www.figma.com/file/y1203BjQzYBTxTdXYUfkvM/Peas-in-a-Book-Pod?node-id=0%3A1">figma wireframe</a></p>
+
+<p>I decided to use the <strong>Angular Framework</strong> because I recently learned it at a hackathon and look forward to exploring it further. I am choosing <strong>Firestore</strong> to keep a scalable database of the information outlined in the classes below.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//pseudocode in typescript
+class Reader {
+    String uid;
+    String name;
+    ArrayList&lt;Book&gt; book;
+    int pagesReadPerDay;
+    boolean reading;
+
+    void createBook(title, author, ...);
+    void read(Book book); // or finish a book
+    void update(Book book);
+
+    void joinPod();
+    void leavePod();
+    // stretch goal: adminPod()
+}
+
+class Book {
+    String bookId;
+    String ownerUid;
+    boolean availability;
+
+    String title;
+    String Author;
+    int pageCount;
+    String Description;
+    String genre;
+    String purchaseLink;
+}
+
+class Pod {
+    String podId; // join code
+    HashMap&lt;Person, Book&gt; assignments;
+    
+    //keeping track of timeline? 
+
+    /* 
+    Brute Force: recursive backtracking to find best combination to reduce total wait time of everybody in the cycle of a pod. Stretch goal: once somebody finishes, somebody else can submit new book into the cycle.
+
+    =&gt; maybe explore a DP solution?
+    */
+
+}
+
+</code></pre></div></div>
+<p>What I am working on right now is solving the problem of keeping track of the book assignments in a pod. In other words, I’m thinking about how I can design the Pod class to circulate the books most efficiently.</p>
+
+<p>If you have thoughts/suggestions you would like to share with me, feel free to reach out! I’m down to just chat about ideas and meeting people too :)</p>]]></content><author><name></name></author><category term="Projects" /><summary type="html"><![CDATA[For educational purposes, I am building a web application to practice my system design skills and to learn a new framework. The goal of the application is to circulate privately owned books between readers in a book pod. I want to design an efficient exchange algorithm to accommodate every members who read at different pace and to reduce the wait time between each books by matching strategically who gets which book at each point in the cycle. This is a work in progress.]]></summary></entry></feed>
