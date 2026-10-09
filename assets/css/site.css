@@ -260,9 +260,6 @@ a.footnote {
 
 /* ---------- Home ---------- */
 .home h1 { font-size: clamp(2.75rem, 9vw, 4rem); margin-bottom: 1.5rem; }
-.home h1 span { margin-left: 0.3em; font-size: 0.35em; letter-spacing: 0.1em; color: var(--muted); }
-/* Chinese text uses a serif designed to pair with the Latin serif. */
-[lang="zh-Hans"] { font-family: "Noto Serif SC", "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", SimSun, serif; }
 .lede { font-size: 1.3rem; line-height: 1.6; }
 @media (max-width: 40rem) { .lede { font-size: 1.15rem; } }
 
