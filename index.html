@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<section class="home">
+  <h1>{{ site.title }}</h1>
+  <p class="lede">
+    Hi, I’m Yunwei. This is where I write essays and keep track of the things I build.
+  </p>
+  <p>
+    The essays are longer pieces, written slowly. The projects page links to code on GitHub.
+    If you’re looking for my site from 2020, it’s still up as
+    <a href="{{ '/archive/' | relative_url }}">my old site (2020)</a>.
+  </p>
+
+  <h2 class="section-title">Recent essays</h2>
+  {%- include essay-list.html limit=3 %}
+  <p><a href="{{ '/essays/' | relative_url }}">All essays →</a></p>
+
+  <h2 class="section-title">Elsewhere</h2>
+  <ul class="links">
+    <li><a href="{{ '/projects/' | relative_url }}">Projects</a></li>
+    <li><a href="https://github.com/{{ site.github_username }}">GitHub</a></li>
+    <li><a href="https://www.linkedin.com/in/{{ site.linkedin_username }}">LinkedIn</a></li>
+    <li><a href="{{ '/archive/' | relative_url }}">My old site (2020)</a></li>
+  </ul>
+</section>

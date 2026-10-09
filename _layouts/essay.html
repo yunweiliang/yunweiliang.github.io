@@ -1,0 +1,30 @@
+---
+layout: default
+---
+<article class="essay">
+  <header class="essay-header">
+    <h1>{{ page.title | escape }}</h1>
+    {%- if page.subtitle %}
+    <p class="subtitle">{{ page.subtitle }}</p>
+    {%- endif %}
+    <p class="meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+    </p>
+  </header>
+
+  {%- if page.placeholder %}
+  <p class="notice" role="note"><strong>Placeholder.</strong> This essay is sample text showing the layout. It will be replaced with a real essay.</p>
+  {%- endif %}
+
+  {%- unless page.toc == false %}
+    {%- include toc.html html=content %}
+  {%- endunless %}
+
+  <div class="prose">
+    {{ content }}
+  </div>
+
+  <footer class="essay-footer">
+    <a href="{{ '/essays/' | relative_url }}">← All essays</a>
+  </footer>
+</article>

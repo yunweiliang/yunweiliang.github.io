@@ -1,0 +1,14 @@
+# Each entry becomes a card on /projects/. Replace the placeholders with real
+# projects: name, a one-line description, and a link (usually a GitHub repo).
+
+- name: Predicting heart disease risk
+  description: A class project comparing three scikit-learn classifiers on the Cleveland Heart Disease dataset.
+  url: https://github.com/yunweiliang/cse163-final-project
+
+- name: Project name (placeholder)
+  description: One sentence about what this project does and why it exists.
+  url: https://github.com/yunweiliang?tab=repositories
+
+- name: Project name (placeholder)
+  description: One sentence about what this project does and why it exists.
+  url: https://github.com/yunweiliang?tab=repositories
