@@ -3,3 +3,6 @@ _site/
 .sass-cache/
 .bundle/
 vendor/
+# Plain-text research papers. Only the encrypted research/ pages are
+# committed; see tools/research.rb.
+_research/

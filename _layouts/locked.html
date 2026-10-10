@@ -1,0 +1,23 @@
+---
+layout: default
+---
+{%- comment -%}
+  Invite-only page. The content is an encrypted payload written by
+  tools/research.rb; assets/js/unlock.js decrypts it with the invite code.
+{%- endcomment -%}
+<div class="locked" data-locked data-site-title="{{ site.title | escape }}">
+  <form class="unlock-form">
+    <h1>Invite only</h1>
+    <p>These research papers are shared with people I've invited. Enter your invite code to read them.</p>
+    <label for="invite-code">Invite code</label>
+    <div class="unlock-row">
+      <input id="invite-code" name="code" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+      <button type="submit">Open</button>
+    </div>
+    <p class="unlock-error" role="alert"></p>
+  </form>
+  <div class="locked-content" hidden></div>
+  <noscript><p class="notice">Reading these papers needs JavaScript.</p></noscript>
+</div>
+{{ content }}
+<script src="{{ '/assets/js/unlock.js' | relative_url }}" defer></script>
