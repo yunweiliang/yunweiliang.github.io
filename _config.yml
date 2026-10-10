@@ -11,8 +11,6 @@ theme: null
 
 github_username: yunweiliang
 
-# Essays live in _posts/ and are published at /essays/<slug>/
-permalink: /essays/:title/
 
 markdown: kramdown
 kramdown:
