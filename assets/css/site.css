@@ -281,6 +281,46 @@ a.footnote {
 .essay-list p { margin: 0.3rem 0 0; color: var(--muted); font-size: 1rem; line-height: 1.55; }
 .essay-list .meta { margin-top: 0.4rem; font-size: 0.8125rem; }
 
+/* ---------- Invite-only pages ---------- */
+.unlock-form label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.unlock-row { display: flex; gap: 0.5rem; max-width: 24rem; }
+.unlock-row input,
+.unlock-row button {
+  font: inherit;
+  font-family: var(--sans);
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+}
+.unlock-row input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--muted);
+  background: var(--bg);
+  color: var(--text);
+}
+.unlock-row button {
+  border: 0;
+  background: var(--accent);
+  color: var(--bg);
+  cursor: pointer;
+}
+.unlock-row button:disabled { opacity: 0.6; cursor: progress; }
+.unlock-error {
+  min-height: 1.5em;
+  margin: 0.5rem 0 0;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  color: var(--accent);
+}
+.locked-content h1:focus { outline: none; }
+
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
 }
