@@ -1,0 +1,10 @@
+---
+layout: null
+permalink: /robots.txt
+---
+# Crawling is allowed on purpose: every page carries
+# <meta name="robots" content="noindex, nofollow">, and search engines only
+# see that tag if they can fetch the page. Blocking crawling here would let
+# a page that is linked from elsewhere show up in results as a bare URL.
+User-agent: *
+Allow: /
