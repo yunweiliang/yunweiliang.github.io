@@ -1,5 +1,5 @@
 title: Yunwei Liang
-description: Essays and projects by Yunwei Liang.
+description: Yunwei Liang.
 author: Yunwei Liang
 url: "https://yunweiliang.github.io"
 baseurl: ""
@@ -26,7 +26,6 @@ kramdown:
 
 exclude:
   - README.md
-  - old-urls/README.md
   - Gemfile
   - Gemfile.lock
   - vendor
