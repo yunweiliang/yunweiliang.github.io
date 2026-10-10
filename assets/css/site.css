@@ -259,27 +259,12 @@ a.footnote {
 .footnotes li, sup { scroll-margin-top: 1.5rem; }
 
 /* ---------- Home ---------- */
-.home h1 { font-size: clamp(2.75rem, 9vw, 4rem); margin-bottom: 1.5rem; }
+.home h1 { font-size: clamp(2.75rem, 9vw, 4rem); margin-bottom: 3rem; }
+.essay-title { font-size: 2rem; margin: 0 0 0.6rem; }
+@media (max-width: 40rem) { .essay-title { font-size: 1.6rem; } }
 .lede { font-size: 1.3rem; line-height: 1.6; }
 @media (max-width: 40rem) { .lede { font-size: 1.15rem; } }
 
-.section-title {
-  margin: 3.5rem 0 1rem;
-  font-family: var(--sans);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.essay-list { list-style: none; margin: 0; padding: 0; }
-.essay-list li { padding: 1.25rem 0; border-bottom: 1px solid var(--faint); }
-.essay-list li:first-child { padding-top: 0; }
-.essay-list a { color: var(--text); text-decoration: none; font-size: 1.25rem; line-height: 1.35; }
-.essay-list a:hover { color: var(--accent); }
-.essay-list p { margin: 0.3rem 0 0; color: var(--muted); font-size: 1rem; line-height: 1.55; }
-.essay-list .meta { margin-top: 0.4rem; font-size: 0.8125rem; }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }

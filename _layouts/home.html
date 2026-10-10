@@ -1,0 +1,32 @@
+---
+layout: default
+---
+<section class="home">
+  <h1>{{ site.title | split: " " | first }}</h1>
+
+  <article class="essay">
+    <header class="essay-header">
+      {%- if page.essay_title %}
+      <h2 class="essay-title">{{ page.essay_title | escape }}</h2>
+      {%- endif %}
+      {%- if page.subtitle %}
+      <p class="subtitle">{{ page.subtitle }}</p>
+      {%- endif %}
+      {%- if page.date %}
+      <p class="meta"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time></p>
+      {%- endif %}
+    </header>
+
+    {%- if page.placeholder %}
+    <p class="notice" role="note"><strong>Placeholder.</strong> This is sample text showing the layout. Replace it with your essay in <code>index.md</code>.</p>
+    {%- endif %}
+
+    {%- unless page.toc == false %}
+      {%- include toc.html html=content %}
+    {%- endunless %}
+
+    <div class="prose">
+      {{ content }}
+    </div>
+  </article>
+</section>
