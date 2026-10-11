@@ -15,8 +15,16 @@
     button.setAttribute("aria-label", "Switch to " + next + " theme");
   }
 
+  var fadeTimer;
+
   button.addEventListener("click", function () {
     var next = current() === "dark" ? "light" : "dark";
+    // Turn on color transitions just for this switch (see .theme-transitioning).
+    root.classList.add("theme-transitioning");
+    clearTimeout(fadeTimer);
+    fadeTimer = setTimeout(function () {
+      root.classList.remove("theme-transitioning");
+    }, 700);
     root.setAttribute("data-theme", next);
     try { localStorage.setItem("theme", next); } catch (e) {}
     label();
