@@ -48,15 +48,35 @@ layout: gate
       input.focus();
     }
 
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Fade the gate out, swap in the home page, then reveal it block by block.
+    function enter(html) {
+      function show() {
+        main.className = "page is-entering";
+        main.innerHTML = html;
+        window.scrollTo(0, 0);
+        var blocks = main.children;
+        if (blocks.length === 1 && blocks[0].children.length) blocks = blocks[0].children;
+        for (var i = 0; i < blocks.length; i++) {
+          blocks[i].classList.add("reveal");
+          blocks[i].style.setProperty("--reveal-i", Math.min(i, 8));
+        }
+        setTimeout(function () { main.classList.remove("is-entering"); }, 1700);
+      }
+      if (reduceMotion) return show();
+      main.classList.add("is-leaving");
+      return new Promise(function (resolve) {
+        setTimeout(function () { show(); resolve(); }, 450);
+      });
+    }
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (button.disabled) return;
       button.disabled = true;
       open(input.value)
-        .then(function (html) {
-          main.className = "page";
-          main.innerHTML = html;
-        })
+        .then(enter)
         .catch(wrong)
         .then(function () { button.disabled = false; });
     });

@@ -114,12 +114,20 @@ main {
   cursor: pointer;
 }
 .theme-toggle:hover { color: var(--text); }
-.theme-toggle .icon-sun { display: none; }
-:root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
-:root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+.theme-toggle { position: relative; }
+
+/* Both icons sit in the same spot; the inactive one is rotated and faded out,
+   so switching themes morphs one into the other instead of swapping. */
+.theme-toggle svg {
+  position: absolute;
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+.theme-toggle .icon-sun { opacity: 0; transform: rotate(-90deg) scale(0.5); }
+:root[data-theme="dark"] .theme-toggle .icon-sun { opacity: 1; transform: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-toggle .icon-sun { display: block; }
-  :root:not([data-theme="light"]) .theme-toggle .icon-moon { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle .icon-sun { opacity: 1; transform: none; }
+  :root:not([data-theme="light"]) .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
 }
 
 main {
@@ -330,6 +338,43 @@ a.footnote {
   25% { transform: translateX(-4px); }
   50% { transform: translateX(4px); }
   75% { transform: translateX(-2px); }
+}
+
+.gate-form { animation: gate-in 0.9s ease backwards; }
+@keyframes gate-in {
+  from { opacity: 0; transform: translateY(6px); }
+}
+
+/* Passcode accepted: the form drifts up and dissolves... */
+.gate.is-leaving .gate-form {
+  opacity: 0;
+  transform: translateY(-12px);
+  filter: blur(4px);
+  transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
+}
+
+/* ...then the home page rises in, one block at a time. */
+.page.is-entering .reveal {
+  animation: page-in 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--reveal-i, 0) * 90ms);
+}
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(14px); filter: blur(3px); }
+}
+
+/* ---------- Theme fade ----------
+   theme.js adds this class for the length of the fade, so colors taper
+   between light and dark without slowing ordinary hover effects. */
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+  transition-property: background-color, color, border-color, outline-color, text-decoration-color, fill, stroke !important;
+  transition-duration: 0.6s !important;
+  transition-timing-function: ease !important;
+}
+.theme-transitioning .theme-toggle svg {
+  transition-property: opacity, transform !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
