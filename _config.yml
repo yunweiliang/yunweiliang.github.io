@@ -26,6 +26,9 @@ kramdown:
 
 exclude:
   - README.md
+  - CLAUDE.md
+  - CHANGELOG.md
+  - COSTS.md
   - Gemfile
   - Gemfile.lock
   - vendor
