@@ -25,6 +25,7 @@ kramdown:
 
 
 exclude:
+  - tools
   - README.md
   - Gemfile
   - Gemfile.lock

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lock the home page</title>
+<link rel="stylesheet" href="../assets/css/site.css">
+<style>
+  body { padding: 2rem 1rem; }
+  .tool { max-width: 38rem; margin: 0 auto; font-family: var(--sans); }
+  .tool label { display: block; margin: 1.25rem 0 0.35rem; font-size: 0.875rem; color: var(--muted); }
+  .tool input[type=password], .tool input[type=file] { width: 100%; font: inherit; padding: 0.5rem; }
+  .tool button { margin-top: 1.5rem; font: inherit; padding: 0.6rem 1.2rem; cursor: pointer; }
+  .tool .status { margin-top: 1rem; min-height: 1.5rem; }
+  .tool .error { color: #b3452c; }
+  .preview { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--faint); }
+</style>
+</head>
+<body>
+<div class="tool">
+  <h1>Lock the home page</h1>
+  <p>Runs entirely in this browser tab: nothing is uploaded anywhere. It encrypts your home page the same
+     way the front page's gate decrypts it, then downloads a new <code>lock.json</code>.</p>
+
+  <label for="file">Home page HTML (from your private east_of_eden repo: portfolio/home.html)</label>
+  <input id="file" type="file" accept=".html,text/html">
+
+  <label for="pass">Passcode</label>
+  <input id="pass" type="password" autocomplete="off">
+  <label for="pass2">Passcode again</label>
+  <input id="pass2" type="password" autocomplete="off">
+
+  <button id="lock" type="button">Lock and download lock.json</button>
+  <p class="status" id="status" role="status"></p>
+</div>
+<div class="preview">
+  <main class="page" id="preview"></main>
+</div>
+<script>
+  // Must match the gate in index.html: same normalize(), PBKDF2-SHA-256 and AES-256-GCM.
+  var ITERATIONS = 600000;
+  function normalize(p) { return p.trim().toLowerCase(); }
+  function b64(buf) { return btoa(String.fromCharCode.apply(null, new Uint8Array(buf))); }
+  function bytes(s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
+
+  function key(passcode, salt) {
+    var subtle = crypto.subtle;
+    return subtle.importKey("raw", new TextEncoder().encode(normalize(passcode)), "PBKDF2", false, ["deriveKey"])
+      .then(function (m) {
+        return subtle.deriveKey({ name: "PBKDF2", hash: "SHA-256", salt: salt, iterations: ITERATIONS },
+          m, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+      });
+  }
+
+  var status = document.getElementById("status");
+  var html = null;
+  function say(msg, isError) { status.textContent = msg; status.className = "status" + (isError ? " error" : ""); }
+
+  document.getElementById("file").addEventListener("change", function (e) {
+    var f = e.target.files[0];
+    if (!f) return;
+    f.text().then(function (t) {
+      html = t;
+      // Preview with the site's own styles, the same way the gate shows it.
+      document.getElementById("preview").innerHTML = t;
+      say("Loaded " + f.name + ". The preview below is what people will see after the passcode.");
+    });
+  });
+
+  document.getElementById("lock").addEventListener("click", function () {
+    var p1 = document.getElementById("pass").value, p2 = document.getElementById("pass2").value;
+    if (!html) return say("Choose the home page file first.", true);
+    if (!normalize(p1)) return say("Type a passcode.", true);
+    if (normalize(p1) !== normalize(p2)) return say("The two passcodes don't match.", true);
+    say("Encrypting…");
+    var salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+    var plain = new TextEncoder().encode(html);
+    key(p1, salt).then(function (k) {
+      return crypto.subtle.encrypt({ name: "AES-GCM", iv: iv }, k, plain).then(function (ct) {
+        // Round trip: decrypt what we just made, so a broken lock is never downloaded.
+        return crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, k, ct).then(function (back) {
+          if (new TextDecoder().decode(back) !== html) throw new Error("round trip failed");
+          return ct;
+        });
+      });
+    }).then(function (ct) {
+      var lock = { v: 1, iterations: ITERATIONS, salt: b64(salt), iv: b64(iv), ct: b64(ct) };
+      var blob = new Blob([JSON.stringify(lock, null, 2) + "\n"], { type: "application/json" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "lock.json";
+      a.click();
+      say("Done. Move the downloaded lock.json into _data/ in this repo (replacing the old one), then commit and push.");
+      document.getElementById("pass").value = document.getElementById("pass2").value = "";
+    }).catch(function (err) { say("Something went wrong: " + err.message, true); });
+  });
+</script>
+</body>
+</html>
