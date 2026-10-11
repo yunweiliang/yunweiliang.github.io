@@ -53,6 +53,7 @@ layout: gate
     // Fade the gate out, swap in the home page, then reveal it block by block.
     function enter(html) {
       function show() {
+        document.body.classList.remove("gate-body");
         main.className = "page is-entering";
         main.innerHTML = html;
         window.scrollTo(0, 0);
@@ -62,12 +63,12 @@ layout: gate
           blocks[i].classList.add("reveal");
           blocks[i].style.setProperty("--reveal-i", Math.min(i, 8));
         }
-        setTimeout(function () { main.classList.remove("is-entering"); }, 1700);
+        setTimeout(function () { main.classList.remove("is-entering"); }, 3200);
       }
       if (reduceMotion) return show();
       main.classList.add("is-leaving");
       return new Promise(function (resolve) {
-        setTimeout(function () { show(); resolve(); }, 450);
+        setTimeout(function () { show(); resolve(); }, 700);
       });
     }
 

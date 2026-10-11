@@ -1,11 +1,11 @@
 /* ---------- Tokens ---------- */
 :root {
-  --bg: #fdf6e3;
-  --text: #073642;
-  --muted: #4f6168;
-  --faint: #e6dfca;
-  --accent: #1a6397;
-  --notice-bg: #eee8d5;
+  --bg: #f7f7f4;
+  --text: #2a2b2a;
+  --muted: #686a66;
+  --faint: #e3e3de;
+  --accent: #557262;
+  --notice-bg: #edede8;
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --measure: 38rem;
@@ -14,23 +14,23 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #002b36;
-    --text: #e4e2d6;
-    --muted: #9fb0b2;
-    --faint: #0f3d49;
-    --accent: #6fb6e8;
-    --notice-bg: #073642;
+    --bg: #1b1c1d;
+    --text: #dcdcd6;
+    --muted: #93958f;
+    --faint: #2e3031;
+    --accent: #9dbba8;
+    --notice-bg: #242627;
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #002b36;
-  --text: #e4e2d6;
-  --muted: #9fb0b2;
-  --faint: #0f3d49;
-  --accent: #6fb6e8;
-  --notice-bg: #073642;
+  --bg: #1b1c1d;
+  --text: #dcdcd6;
+  --muted: #93958f;
+  --faint: #2e3031;
+  --accent: #9dbba8;
+  --notice-bg: #242627;
   color-scheme: dark;
 }
 
@@ -94,20 +94,34 @@ main {
   padding-right: 1.25rem;
 }
 
-/* The toggle lines up with the right edge of the text column, not the window. */
+/* Top bar inside the text column: name on the left, toggle + links on the right. */
 .site-header {
-  position: absolute;
-  top: 1.5rem;
-  left: 0;
-  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   max-width: calc(var(--measure) + 2.5rem);
   margin: 0 auto;
-  padding: 0 1.25rem;
-  display: flex;
-  justify-content: flex-end;
-  pointer-events: none;
+  padding: 1.5rem 1.25rem 0;
+  font-family: var(--sans);
+  font-size: 0.875rem;
 }
-.site-header .theme-toggle {
+.site-name {
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+}
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.site-nav a { color: var(--muted); text-decoration: none; }
+.site-nav a:hover, .site-name:hover { color: var(--accent); }
+.gate-body .site-header { position: absolute; left: 0; right: 0; }
+
+.theme-toggle {
   pointer-events: auto;
   margin-right: -0.5625rem; /* optically align the icon, not its hit area, with the text edge */
 }
@@ -143,7 +157,7 @@ main {
 }
 
 main {
-  padding-top: 5rem;
+  padding-top: 3.5rem;
   padding-bottom: 4rem;
 }
 
@@ -360,18 +374,18 @@ a.footnote {
 /* Passcode accepted: the form drifts up and dissolves... */
 .gate.is-leaving .gate-form {
   opacity: 0;
-  transform: translateY(-12px);
-  filter: blur(4px);
-  transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
+  transform: translateY(-16px);
+  filter: blur(6px);
+  transition: opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease;
 }
 
 /* ...then the home page rises in, one block at a time. */
 .page.is-entering .reveal {
-  animation: page-in 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  animation-delay: calc(var(--reveal-i, 0) * 90ms);
+  animation: page-in 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(0.15s + var(--reveal-i, 0) * 160ms);
 }
 @keyframes page-in {
-  from { opacity: 0; transform: translateY(14px); filter: blur(3px); }
+  from { opacity: 0; transform: translateY(24px); filter: blur(6px); }
 }
 
 /* ---------- Theme fade ----------
@@ -382,11 +396,18 @@ a.footnote {
 .theme-transitioning *::before,
 .theme-transitioning *::after {
   transition-property: background-color, color, border-color, outline-color, text-decoration-color, fill, stroke !important;
-  transition-duration: 0.6s !important;
+  transition-duration: 0.9s !important;
   transition-timing-function: ease !important;
 }
 .theme-transitioning .theme-toggle svg {
   transition-property: opacity, transform !important;
+}
+
+/* Full-page crossfade for the theme switch (browsers with View Transitions). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.9s;
+  animation-timing-function: ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
