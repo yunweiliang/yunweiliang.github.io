@@ -7,24 +7,58 @@ layout: gate
   <button class="gate-enter" type="submit">Enter</button>
 </form>
 <script>
-  // Pre-MVP gate. The passcode sits here in plain sight on purpose:
-  // anyone who opens the page source can find it.
+  // Stage 1 gate. The content behind the door is encrypted (AES-256-GCM),
+  // and the passcode is the key: PBKDF2-SHA-256 turns it into the AES key.
+  // Nothing on this page reveals the passcode or the content.
   (function () {
-    var PASSCODE = "bread basket";
+    var LOCK = {{ site.data.lock | jsonify }};
     var form = document.querySelector(".gate-form");
     var input = form.querySelector(".gate-input");
+    var button = form.querySelector(".gate-enter");
+    var main = document.getElementById("main");
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (input.value.trim().toLowerCase() === PASSCODE) {
-        window.location.href = "{{ '/home/' | relative_url }}";
-        return;
-      }
+    function bytes(b64) {
+      return Uint8Array.from(atob(b64), function (c) { return c.charCodeAt(0); });
+    }
+
+    // Must match normalize() in the encrypt script.
+    function normalize(passcode) {
+      return passcode.trim().toLowerCase();
+    }
+
+    function open(passcode) {
+      var subtle = window.crypto.subtle;
+      return subtle.importKey("raw", new TextEncoder().encode(normalize(passcode)), "PBKDF2", false, ["deriveKey"])
+        .then(function (material) {
+          return subtle.deriveKey(
+            { name: "PBKDF2", hash: "SHA-256", salt: bytes(LOCK.salt), iterations: LOCK.iterations },
+            material, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+        })
+        .then(function (key) {
+          return subtle.decrypt({ name: "AES-GCM", iv: bytes(LOCK.iv) }, key, bytes(LOCK.ct));
+        })
+        .then(function (plain) { return new TextDecoder().decode(plain); });
+    }
+
+    function wrong() {
       input.value = "";
       input.classList.remove("is-wrong");
       void input.offsetWidth; // restart the shake animation
       input.classList.add("is-wrong");
       input.focus();
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (button.disabled) return;
+      button.disabled = true;
+      open(input.value)
+        .then(function (html) {
+          main.className = "page";
+          main.innerHTML = html;
+        })
+        .catch(wrong)
+        .then(function () { button.disabled = false; });
     });
 
     input.addEventListener("animationend", function () {
