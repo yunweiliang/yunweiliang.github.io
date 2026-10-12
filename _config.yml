@@ -1,4 +1,6 @@
 title: Yunwei Liang
+# The name shown in the top bar. `title` stays the full name for the browser tab and metadata.
+header_name: Yunwei
 description: Yunwei Liang.
 author: Yunwei Liang
 url: "https://yunweiliang.github.io"
