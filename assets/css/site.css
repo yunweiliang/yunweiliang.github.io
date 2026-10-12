@@ -243,7 +243,8 @@ pre { overflow-x: auto; padding: 1rem; background: var(--notice-bg); border-radi
   padding-left: var(--rail);
   margin: 0 0 var(--gap);
 }
-.entry:not([open]) { --gap: 1.25rem; }
+.entry { transition: margin-bottom 0.35s ease; }
+.entry:not([open]), .entry.is-closing { --gap: 1.25rem; }
 .entry::before,
 .entry::after { content: ""; position: absolute; }
 .entry::before {
@@ -265,8 +266,9 @@ pre { overflow-x: auto; padding: 1rem; background: var(--notice-bg); border-radi
   border: 2px solid var(--muted);
   transition: background 0.2s ease;
 }
-.entry:not([open])::after { background: var(--bg); }
+.entry:not([open])::after, .entry.is-closing::after { background: var(--bg); }
 
+/* The whole row toggles: the day in the margin, the title and the space after it. */
 .entry-head {
   display: block;
   list-style: none;
@@ -281,30 +283,13 @@ pre { overflow-x: auto; padding: 1rem; background: var(--notice-bg); border-radi
 .prose .entry-title {
   margin: 0;
   font-size: inherit;
-  font-weight: 600;
+  font-weight: inherit;
   line-height: inherit;
   letter-spacing: normal;
 }
-.entry[open] > .entry-head { margin-bottom: 0.5rem; }
-/* A chevron after the title: right when closed, down when open. */
-.prose .entry-title::after {
-  content: "";
-  display: inline-block;
-  width: 0.4em;
-  height: 0.4em;
-  margin-left: 0.6em;
-  border-right: 1.5px solid var(--muted);
-  border-bottom: 1.5px solid var(--muted);
-  transform: translateY(-0.15em) rotate(-45deg);
-  transition: transform 0.2s ease;
-}
-.entry[open] .entry-title::after { transform: translateY(-0.3em) rotate(45deg); }
-.entry-head:hover .entry-title::after { border-color: var(--text); }
-.entry-day {
-  margin-right: 0.5em;
-  font-weight: 400;
-  color: var(--muted);
-}
+.entry-head:hover .entry-title { color: var(--accent); }
+.entry-day { margin-right: 0.5em; }
+.entry-body { padding-top: 0.5rem; }
 .entry-body > :last-child { margin-bottom: 0; }
 
 @media (min-width: 56rem) {
