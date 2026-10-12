@@ -109,7 +109,7 @@ main {
 .site-name {
   color: var(--text);
   font-family: var(--serif);
-  font-size: 1.375rem;
+  font-size: 2rem;
   font-weight: 500;
   letter-spacing: -0.01em;
   text-decoration: none;
@@ -316,7 +316,6 @@ a.footnote {
 .essay-list a:hover { color: var(--accent); }
 .essay-list p { margin: 0.3rem 0 0; color: var(--muted); font-size: 1rem; line-height: 1.55; }
 .essay-list .meta { margin-top: 0.4rem; font-size: 0.8125rem; }
-.home .essay { margin-top: 3.5rem; }
 
 /* ---------- Gate ---------- */
 .gate {
