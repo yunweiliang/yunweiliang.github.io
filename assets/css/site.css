@@ -7,8 +7,9 @@
   --accent: #557262;
   --notice-bg: #edede8;
   --serif: "Libre Caslon Text", "Iowan Old Style", Georgia, "Times New Roman", serif;
-  --display: "Libre Caslon Display", var(--serif);
-  --sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* One family everywhere: names, titles, body, and UI text. */
+  --display: var(--serif);
+  --sans: var(--serif);
   --measure: 38rem;
   color-scheme: light;
 }
