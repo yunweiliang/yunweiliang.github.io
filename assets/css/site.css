@@ -6,8 +6,9 @@
   --faint: #e3e3de;
   --accent: #557262;
   --notice-bg: #edede8;
-  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: "Libre Caslon Text", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --display: "Libre Caslon Display", var(--serif);
+  --sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --measure: 38rem;
   color-scheme: light;
 }
@@ -108,10 +109,10 @@ main {
 }
 .site-name {
   color: var(--text);
-  font-family: var(--serif);
-  font-size: 1.75rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-family: var(--display);
+  font-size: 1.875rem;
+  font-weight: 400;
+  letter-spacing: 0;
   text-decoration: none;
 }
 .site-nav {
@@ -186,9 +187,11 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 2.75rem;
   margin: 0 0 0.75rem;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.005em;
 }
 @media (max-width: 40rem) { h1 { font-size: 2rem; } }
 

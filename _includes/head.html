@@ -22,6 +22,11 @@
     if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
   } catch (e) {}
 </script>
+<!-- Open-source stand-ins for The New Yorker's type: Libre Caslon (for Adobe Caslon
+     and the display heads) and Hanken Grotesk (for Graphik). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400..700;1,400..700&display=swap">
 <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
 <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="any">
 <link rel="icon" href="{{ '/favicon.svg' | relative_url }}" type="image/svg+xml">
