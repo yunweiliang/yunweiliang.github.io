@@ -228,6 +228,57 @@ pre { overflow-x: auto; padding: 1rem; background: var(--notice-bg); border-radi
 
 .page-header, .essay-header { margin-bottom: 2.5rem; }
 
+/* ---------- Journal entries: a vertical timeline ----------
+   A dot at the entry's first line, a rail down to its end, and the day's label left of the dot.
+   Wide screens put the rail and label in the margin, so the text stays on the column's edge;
+   narrow ones indent the text and put the label on the dot's line, above it. */
+.entry {
+  --dot: 0.75rem;
+  --rail: 1.75rem;
+  --first-line: 0.85em; /* half of the body's line-height: the middle of the first line */
+  position: relative;
+  padding-left: var(--rail);
+  margin: 0 0 3rem;
+}
+.entry::before,
+.entry::after { content: ""; position: absolute; }
+.entry::before {
+  left: calc(var(--dot) / 2 - 1px);
+  top: var(--first-line);
+  bottom: 0;
+  width: 2px;
+  background: var(--faint);
+}
+.entry::after {
+  left: 0;
+  top: calc(var(--first-line) - var(--dot) / 2);
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  background: var(--muted);
+}
+.prose .entry-day {
+  margin: 0 0 0.5rem;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: normal;
+}
+.entry-body > :last-child { margin-bottom: 0; }
+
+@media (min-width: 56rem) {
+  .entry { padding-left: 0; }
+  .entry::before { left: calc(var(--dot) / 2 - 1px - var(--rail)); }
+  .entry::after { left: calc(-1 * var(--rail)); }
+  .prose .entry-day {
+    position: absolute;
+    top: 0;
+    right: calc(100% + var(--rail) + 0.75rem);
+    margin: 0;
+    white-space: nowrap;
+  }
+}
+
 /* ---------- Essay ---------- */
 .notice {
   margin: 0 0 2.5rem;
