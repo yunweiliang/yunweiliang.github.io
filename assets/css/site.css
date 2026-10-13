@@ -283,12 +283,13 @@ pre { overflow-x: auto; padding: 1rem; background: var(--notice-bg); border-radi
 .prose .entry-title {
   margin: 0;
   font-size: inherit;
-  font-weight: inherit;
+  font-weight: 700;
   line-height: inherit;
   letter-spacing: normal;
 }
 .entry-head:hover .entry-title { color: var(--accent); }
-.entry-day { margin-right: 0.5em; }
+/* The day is a small label; the title beside it is bold body text. */
+.entry-day { margin-right: 0.5em; font-size: 0.8125rem; font-weight: 400; }
 .entry-body { padding-top: 0.5rem; }
 .entry-body > :last-child { margin-bottom: 0; }
 
@@ -301,6 +302,7 @@ pre { overflow-x: auto; padding: 1rem; background: var(--notice-bg); border-radi
     top: 0;
     right: calc(100% + var(--rail) + 0.75rem);
     margin: 0;
+    line-height: calc(1.1875rem * 1.7); /* one body line tall, so it centers on the dot */
     white-space: nowrap;
   }
 }
