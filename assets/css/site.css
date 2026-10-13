@@ -294,7 +294,14 @@ pre { overflow-x: auto; padding: 1rem; background: var(--notice-bg); border-radi
 .entry-body > :last-child { margin-bottom: 0; }
 
 @media (min-width: 56rem) {
-  .entry { padding-left: 0; }
+  /* Entries run wider than the column, evenly on both sides, up to 5rem each, when the screen has
+     room for that plus the day label in the margin. */
+  .entry {
+    padding-left: 0;
+    --widen: min(5rem, max(0rem, (100vw - 62rem) / 2));
+    margin-left: calc(-1 * var(--widen));
+    margin-right: calc(-1 * var(--widen));
+  }
   .entry::before { left: calc(var(--dot) / 2 - 1px - var(--rail)); }
   .entry::after { left: calc(-1 * var(--rail)); }
   .entry-day {
