@@ -231,24 +231,31 @@ pre { overflow-x: auto; padding: 1rem; background: var(--notice-bg); border-radi
 /* ---------- Journal entries: a vertical timeline ----------
    A dot at the entry's first line, a rail down to its end, and the day's label left of the dot.
    Wide screens put the rail and label in the margin, so the text stays on the column's edge;
-   narrow ones indent the text and put the label on the dot's line, above it. */
+   narrow ones indent the text and put the label before the title.
+   Each entry is a <details>: its <summary> holds the day and title, and a click opens or closes
+   the body. The newest entry carries `open`; older ones start closed, with a hollow dot. */
 .entry {
   --dot: 0.75rem;
   --rail: 1.75rem;
   --first-line: 0.85em; /* half of the body's line-height: the middle of the first line */
+  --gap: 3rem;
   position: relative;
   padding-left: var(--rail);
-  margin: 0 0 3rem;
+  margin: 0 0 var(--gap);
 }
+.entry { transition: margin-bottom 0.35s ease; }
+.entry:not([open]), .entry.is-closing { --gap: 1.25rem; }
 .entry::before,
 .entry::after { content: ""; position: absolute; }
 .entry::before {
   left: calc(var(--dot) / 2 - 1px);
   top: var(--first-line);
-  bottom: 0;
+  bottom: calc(-1 * (var(--gap) + var(--first-line))); /* on to the next entry's dot */
   width: 2px;
   background: var(--faint);
 }
+.entry:last-of-type::before { bottom: 0; }
+.entry:last-of-type:not([open])::before { display: none; }
 .entry::after {
   left: 0;
   top: calc(var(--first-line) - var(--dot) / 2);
@@ -256,25 +263,46 @@ pre { overflow-x: auto; padding: 1rem; background: var(--notice-bg); border-radi
   height: var(--dot);
   border-radius: 50%;
   background: var(--muted);
+  border: 2px solid var(--muted);
+  transition: background 0.2s ease;
 }
-.prose .entry-day {
-  margin: 0 0 0.5rem;
+.entry:not([open])::after, .entry.is-closing::after { background: var(--bg); }
+
+/* The whole row toggles: the day in the margin, the title and the space after it. */
+.entry-head {
+  display: block;
+  list-style: none;
+  cursor: pointer;
+}
+.entry-head::-webkit-details-marker { display: none; }
+.entry-head:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.prose .entry-title {
+  margin: 0;
   font-size: inherit;
-  font-weight: inherit;
+  font-weight: 700;
   line-height: inherit;
   letter-spacing: normal;
 }
+.entry-head:hover .entry-title { color: var(--accent); }
+/* The day is a small label; the title beside it is bold body text. */
+.entry-day { margin-right: 0.5em; font-size: 0.8125rem; font-weight: 400; }
+.entry-body { padding-top: 0.5rem; }
 .entry-body > :last-child { margin-bottom: 0; }
 
 @media (min-width: 56rem) {
   .entry { padding-left: 0; }
   .entry::before { left: calc(var(--dot) / 2 - 1px - var(--rail)); }
   .entry::after { left: calc(-1 * var(--rail)); }
-  .prose .entry-day {
+  .entry-day {
     position: absolute;
     top: 0;
     right: calc(100% + var(--rail) + 0.75rem);
     margin: 0;
+    line-height: calc(1.1875rem * 1.7); /* one body line tall, so it centers on the dot */
     white-space: nowrap;
   }
 }
