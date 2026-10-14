@@ -27,7 +27,7 @@ kramdown:
 
 
 exclude:
-  - tools
+  - CLAUDE.md
   - README.md
   - Gemfile
   - Gemfile.lock

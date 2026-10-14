@@ -1,6 +1,6 @@
 // Journal entries open and close smoothly. Each entry is a <details>, so it works without this
-// script; this only animates the body's height. The home page arrives through innerHTML after the
-// passcode, so its own scripts never run: one listener on the document catches clicks on any entry.
+// script; this only animates the body's height. One listener on the document catches clicks on any
+// entry.
 (function () {
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   var DURATION = 350;

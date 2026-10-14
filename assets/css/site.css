@@ -121,7 +121,6 @@ main {
 }
 .site-nav a { color: var(--muted); text-decoration: none; }
 .site-nav a:hover, .site-name:hover { color: var(--accent); }
-.gate-body .site-header { position: absolute; left: 0; right: 0; }
 
 .theme-toggle {
   pointer-events: auto;
@@ -294,7 +293,14 @@ pre { overflow-x: auto; padding: 1rem; background: var(--notice-bg); border-radi
 .entry-body > :last-child { margin-bottom: 0; }
 
 @media (min-width: 56rem) {
-  .entry { padding-left: 0; }
+  /* Entries run wider than the column, evenly on both sides, up to 5rem each, when the screen has
+     room for that plus the day label in the margin. */
+  .entry {
+    padding-left: 0;
+    --widen: min(5rem, max(0rem, (100vw - 62rem) / 2));
+    margin-left: calc(-1 * var(--widen));
+    margin-right: calc(-1 * var(--widen));
+  }
   .entry::before { left: calc(var(--dot) / 2 - 1px - var(--rail)); }
   .entry::after { left: calc(-1 * var(--rail)); }
   .entry-day {
@@ -395,79 +401,6 @@ a.footnote {
 .essay-list a:hover { color: var(--accent); }
 .essay-list p { margin: 0.3rem 0 0; color: var(--muted); font-size: 1rem; line-height: 1.55; }
 .essay-list .meta { margin-top: 0.4rem; font-size: 0.8125rem; }
-
-/* ---------- Gate ---------- */
-.gate {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.gate-form {
-  display: flex;
-  width: 100%;
-  max-width: 24rem;
-  border-bottom: 1px solid var(--muted);
-  transition: border-color 0.15s;
-}
-.gate-form:focus-within { border-bottom-color: var(--text); }
-
-.gate-input, .gate-enter {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 1rem;
-  line-height: 1.5;
-  padding: 0.5rem 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: var(--text);
-}
-
-.gate-input {
-  flex: 1 1 auto;
-  min-width: 0;
-  outline: none;
-}
-.gate-input::placeholder { color: var(--muted); opacity: 0.6; }
-
-.gate-enter {
-  flex: 0 0 auto;
-  padding-left: 1rem;
-  color: var(--muted);
-  cursor: pointer;
-}
-.gate-enter:hover { color: var(--accent); }
-
-.gate-input.is-wrong { animation: gate-shake 0.3s; }
-@keyframes gate-shake {
-  25% { transform: translateX(-4px); }
-  50% { transform: translateX(4px); }
-  75% { transform: translateX(-2px); }
-}
-
-.gate-form { animation: gate-in 0.9s ease backwards; }
-@keyframes gate-in {
-  from { opacity: 0; transform: translateY(6px); }
-}
-
-/* Passcode accepted: the form drifts up and dissolves... */
-.gate.is-leaving .gate-form {
-  opacity: 0;
-  transform: translateY(-16px);
-  filter: blur(6px);
-  transition: opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease;
-}
-
-/* ...then the home page rises in, one block at a time. */
-.page.is-entering .reveal {
-  animation: page-in 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  animation-delay: calc(0.15s + var(--reveal-i, 0) * 160ms);
-}
-@keyframes page-in {
-  from { opacity: 0; transform: translateY(24px); filter: blur(6px); }
-}
 
 /* ---------- Theme fade ----------
    theme.js adds this class for the length of the fade, so colors taper
