@@ -1,89 +1,712 @@
 ---
-layout: gate
+layout: default
 ---
-<form class="gate-form" autocomplete="off" novalidate>
-  <input class="gate-input" type="text" name="passcode" placeholder="open sesame"
-         aria-label="Passcode" spellcheck="false" autocapitalize="off" autofocus>
-  <button class="gate-enter" type="submit">Enter</button>
-</form>
-<script>
-  // Stage 1 gate. The content behind the door is encrypted (AES-256-GCM),
-  // and the passcode is the key: PBKDF2-SHA-256 turns it into the AES key.
-  // Nothing on this page reveals the passcode or the content.
-  (function () {
-    var LOCK = {{ site.data.lock | jsonify }};
-    var form = document.querySelector(".gate-form");
-    var input = form.querySelector(".gate-input");
-    var button = form.querySelector(".gate-enter");
-    var main = document.getElementById("main");
+<section class="home">
+  <article class="essay" id="timshel">
+    <header class="essay-header">
+      <h1>Timshel</h1>
+      <p style="color: var(--muted)"><time datetime="2026-10">October 2026</time><br>
+        <a href="https://github.com/yunweiliang/east_of_eden" style="color: inherit">github.com/yunweiliang/east_of_eden</a> ·
+        Model: Opus 5.5</p>
+      <p>This exercise examines free will in the context of John Steinbeck's East of Eden. Specifically, Claude and I are inspecting Steinbeck's own biblical Cain: Caleb Trask.</p>
+    </header>
 
-    function bytes(b64) {
-      return Uint8Array.from(atob(b64), function (c) { return c.charCodeAt(0); });
-    }
+    <div class="prose">
+      
+      <details class="entry">
+        <summary class="entry-head"><h2 class="entry-title"><span class="entry-day">Day 0</span> Research</h2></summary>
+        <div class="entry-body">
+        <p>I knew I wanted to dissect literary texts with Claude. Something around linguistics, classic literature, or language. And I ran into a lot of problems on the first day just to get started.</p>
+        <p>AI is often used for creation. Only in the past year did I learn more about its application in answering research problems with the scientific method.</p>
+        <p>Researchers have used Claude for everything from running calculations on famous proofs to reconstructing a map of the sky under different lights. Learning more about the scientific method, I realized working with AI is like working with a really, really smart PhD student. This would be a good opportunity for me to run my own research on any problems that are actually interesting to me.</p>
+        <p>I wanted to investigate classic literature. I love reading.</p>
+        <p>Deciding on an actionable problem to work on was the hardest part. Most problems are too trivial, with deterministic solutions. I wanted to work on a problem that is partly non-deterministic.</p>
+        <p>The other issue I ran into is around eval. I am most familiar with classic literature, but the model was likely trained on them. Any fact-checking agent would have to use a golden set using publications after the model is trained, which makes verification a bit more difficult. I would have to read 50+ short essays and books published after the model was trained (e.g., June 2026 for Opus 5.5). Nor did I want to delegate grader to another agent without validating the dev-set myself. Actual eval would take months.</p>
+        <p>Most of today was spent talking to the agent about what datasets are available. Asking for its opinion.</p>
+        <p>I ended up restricting the problem space to one book only. Instead of asking about what happened, how it happened, I asked what could have happened instead.</p>
+        <p style="color: var(--muted)">Warning: spoiler ahead.</p>
+        <p><strong>Prompt</strong></p>
+        <p>I landed on the subject of Timshel: that people can choose how to be despite how they are supposed to be. What would be the permutation of events such that Caleb never retaliates against Aron?</p>
+        <p>I want this to be more than an intuitive interpretation: "if Adam took Caleb's money, then Caleb would not tell Aron."</p>
+        <p>While I agree with this fact, I want this plotted. I want the agent to convince me. I want the model to draw out the alternative plot line.</p>
+        <p>In a fresh session:</p>
+        <pre style="white-space: pre-wrap"><code>// unedited
 
-    // Must match normalize() in the encrypt script.
-    function normalize(passcode) {
-      return passcode.trim().toLowerCase();
-    }
+Help me organize a plan breakdown of MVP, M0, M1, etc. to build a new agent to dissect East of Eden.
 
-    function open(passcode) {
-      var subtle = window.crypto.subtle;
-      return subtle.importKey("raw", new TextEncoder().encode(normalize(passcode)), "PBKDF2", false, ["deriveKey"])
-        .then(function (material) {
-          return subtle.deriveKey(
-            { name: "PBKDF2", hash: "SHA-256", salt: bytes(LOCK.salt), iterations: LOCK.iterations },
-            material, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
-        })
-        .then(function (key) {
-          return subtle.decrypt({ name: "AES-GCM", iv: bytes(LOCK.iv) }, key, bytes(LOCK.ct));
-        })
-        .then(function (plain) { return new TextDecoder().decode(plain); });
-    }
+• MVP is a simple visualizer "Pick 10 linear significant events in East of Eden, leading to the final ending of Caleb telling Aron about Cathy, and output a plot line."
 
-    function wrong() {
-      input.value = "";
-      input.classList.remove("is-wrong");
-      void input.offsetWidth; // restart the shake animation
-      input.classList.add("is-wrong");
-      input.focus();
-    }
+• M0 is "Pick 20 non linear significant events in East of Eden, leading to the final ending of Caleb telling Aron about Cathy, and output a plot line. Non-linear means events could be happening in parallel, at the same time for instance. And multiple events happening in parallel could lead to one event."
 
-    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+• M1: "Pick x[agent determine significant events] non linear significant events in East of Eden, leading to the final ending of Caleb telling Aron about Cathy, and output a plot line. Non-linear means events could be happening in parallel, at the same time for instance. And multiple events happening in parallel could lead to one event." etc. etc. until the end research problem that helps me learn more about =&gt;
 
-    // Fade the gate out, swap in the home page, then reveal it block by block.
-    function enter(html) {
-      function show() {
-        document.body.classList.remove("gate-body");
-        main.className = "page is-entering";
-        main.innerHTML = html;
-        window.scrollTo(0, 0);
-        var blocks = main.children;
-        if (blocks.length === 1 && blocks[0].children.length) blocks = blocks[0].children;
-        for (var i = 0; i < blocks.length; i++) {
-          blocks[i].classList.add("reveal");
-          blocks[i].style.setProperty("--reveal-i", Math.min(i, 8));
-        }
-        setTimeout(function () { main.classList.remove("is-entering"); }, 3200);
-      }
-      if (reduceMotion) return show();
-      main.classList.add("is-leaving");
-      return new Promise(function (resolve) {
-        setTimeout(function () { show(); resolve(); }, 700);
-      });
-    }
+• Free will (big topic I know):
+    ◦ First produce the visualizer. This visualizer of actual events in the book act as the Before picture.
+    ◦ Instead of the final event of Caleb telling Aron, construct an alternate plot line where Caleb does not tell Aron about Cathy such that Aron has a chance at survival and Caleb does not live with the guilt.
+    ◦ What would the plot have to change?
+    ◦ When is the latest point at which events have to change such that the story is still consistent to each characters' story, feelings, and consistent to the plot?</code></pre>
+        <p>Considerations:</p>
+        <ul>
+          <li>I asked Claude to give me a cost estimate.</li>
+        </ul>
+        </div>
+      </details>
+      <details class="entry">
+        <summary class="entry-head"><h2 class="entry-title"><span class="entry-day">Day 1</span> Building MVP</h2></summary>
+        <div class="entry-body">
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (button.disabled) return;
-      button.disabled = true;
-      open(input.value)
-        .then(enter)
-        .catch(wrong)
-        .then(function () { button.disabled = false; });
-    });
+<figure class="eoe-timeline">
+  <style>
+    .eoe-timeline { position: relative; left: 50%; transform: translateX(-50%);
+      width: min(72rem, calc(100vw - 2rem)); margin: 2.5rem 0; }
+    .eoe-timeline .eoe-scroll { overflow-x: auto; border-top: 1px solid var(--faint);
+      border-bottom: 1px solid var(--faint); }
+    .eoe-timeline svg { display: block; }
+    .eoe-timeline .axis, .eoe-timeline .stem { stroke: var(--faint); stroke-width: 2; }
+    .eoe-timeline .node { fill: var(--muted); }
+    .eoe-timeline .node.focal { fill: var(--accent); }
+    .eoe-timeline text { fill: var(--text); text-anchor: middle; font-family: var(--serif); font-size: 14px; }
+    .eoe-timeline text.chap { fill: var(--muted); font-family: var(--sans); font-size: 11px; }
+    .eoe-timeline figcaption { margin-top: 0.75rem; font-family: var(--sans); font-size: 0.8125rem;
+      color: var(--muted); }
+  </style>
+  <div class="eoe-scroll">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1870 330" width="1870" height="330" role="img" aria-label="Linear plot line of 10 events">
+<line x1="80" y1="165" x2="1790" y2="165" class="axis"/>
+<g><title>The narrator introduces Cathy Ames as a &#x27;monster&#x27; born to human parents: The narrator introduces Cathy Ames, a girl who seems to lack ordinary conscience from childhood. She manipulates the people around her and eventually destroys her parents and her home before vanishing.</title>
+<line x1="80" y1="165" x2="80" y2="125" class="stem"/>
+<circle cx="80" cy="165" r="8" class="node"/>
+<text x="80" y="45" class="title">The narrator introduces</text>
+<text x="80" y="63" class="title">Cathy Ames as a</text>
+<text x="80" y="81" class="title">&#x27;monster&#x27; born to human</text>
+<text x="80" y="99" class="title">parents</text>
+<text x="80" y="117" class="chap">Ch. 8</text>
+</g>
+<g><title>The beaten Cathy crawls to the Trask farm: After she is savagely beaten, Cathy drags herself to the Trask brothers&#x27; farmhouse. Adam takes her in and nurses her, while Charles distrusts her from the start.</title>
+<line x1="270" y1="165" x2="270" y2="205" class="stem"/>
+<circle cx="270" cy="165" r="8" class="node"/>
+<text x="270" y="227" class="title">The beaten Cathy crawls</text>
+<text x="270" y="245" class="title">to the Trask farm</text>
+<text x="270" y="263" class="chap">Ch. 10</text>
+</g>
+<g><title>Adam marries Cathy, who drugs him on their wedding night: Adam marries Cathy and plans to take her to California. On their wedding night she drugs him and goes to Charles&#x27;s bed instead.</title>
+<line x1="460" y1="165" x2="460" y2="125" class="stem"/>
+<circle cx="460" cy="165" r="8" class="node"/>
+<text x="460" y="63" class="title">Adam marries Cathy, who</text>
+<text x="460" y="81" class="title">drugs him on their</text>
+<text x="460" y="99" class="title">wedding night</text>
+<text x="460" y="117" class="chap">Ch. 11</text>
+</g>
+<g><title>Cathy, now Kate, poisons Faye and takes over the brothel: Having abandoned Adam and the twins, Cathy works in Faye&#x27;s Salinas brothel under the name Kate. She gradually poisons Faye and inherits the house, becoming its madam.</title>
+<line x1="650" y1="165" x2="650" y2="205" class="stem"/>
+<circle cx="650" cy="165" r="8" class="node"/>
+<text x="650" y="227" class="title">Cathy, now Kate, poisons</text>
+<text x="650" y="245" class="title">Faye and takes over the</text>
+<text x="650" y="263" class="title">brothel</text>
+<text x="650" y="281" class="chap">Ch. 21</text>
+</g>
+<g><title>Samuel tells Adam that Cathy runs a brothel in Salinas: Before leaving the valley for good, Samuel Hamilton tells Adam that his wife is alive and running a whorehouse in Salinas under the name Kate. He hopes the truth will free Adam from his paralysis.</title>
+<line x1="840" y1="165" x2="840" y2="125" class="stem"/>
+<circle cx="840" cy="165" r="8" class="node"/>
+<text x="840" y="63" class="title">Samuel tells Adam that</text>
+<text x="840" y="81" class="title">Cathy runs a brothel in</text>
+<text x="840" y="99" class="title">Salinas</text>
+<text x="840" y="117" class="chap">Ch. 24</text>
+</g>
+<g><title>Adam confronts Kate at her house and is freed from her: Adam visits Kate&#x27;s brothel and sees her clearly for the first time. He leaves released from his obsession, but he resolves to keep the boys ignorant of their mother.</title>
+<line x1="1030" y1="165" x2="1030" y2="205" class="stem"/>
+<circle cx="1030" cy="165" r="8" class="node"/>
+<text x="1030" y="227" class="title">Adam confronts Kate at</text>
+<text x="1030" y="245" class="title">her house and is freed</text>
+<text x="1030" y="263" class="title">from her</text>
+<text x="1030" y="281" class="chap">Ch. 25</text>
+</g>
+<g><title>Abra tells Aron his mother isn&#x27;t dead: Young Abra Bacon visits the Trask ranch and confides to Aron that she has heard their mother is not dead. The rumor plants doubt about the family story the twins were told.</title>
+<line x1="1220" y1="165" x2="1220" y2="125" class="stem"/>
+<circle cx="1220" cy="165" r="8" class="node"/>
+<text x="1220" y="81" class="title">Abra tells Aron his</text>
+<text x="1220" y="99" class="title">mother isn&#x27;t dead</text>
+<text x="1220" y="117" class="chap">Ch. 27</text>
+</g>
+<g><title>Cal learns that his mother is Kate the madam: During his restless night wanderings, Cal is led to Kate&#x27;s house, and after trouble with the law he hears the truth from Adam. Cal now carries alone the knowledge of who their mother is.</title>
+<line x1="1410" y1="165" x2="1410" y2="205" class="stem"/>
+<circle cx="1410" cy="165" r="8" class="node"/>
+<text x="1410" y="227" class="title">Cal learns that his</text>
+<text x="1410" y="245" class="title">mother is Kate the madam</text>
+<text x="1410" y="263" class="chap">Ch. 38</text>
+</g>
+<g><title>Adam rejects Cal&#x27;s Thanksgiving gift of money: Cal presents Adam with the money he earned from bean speculation to replace what his father lost on the lettuce venture. Adam refuses it as war profiteering and praises Aron instead, devastating Cal.</title>
+<line x1="1600" y1="165" x2="1600" y2="125" class="stem"/>
+<circle cx="1600" cy="165" r="8" class="node"/>
+<text x="1600" y="63" class="title">Adam rejects Cal&#x27;s</text>
+<text x="1600" y="81" class="title">Thanksgiving gift of</text>
+<text x="1600" y="99" class="title">money</text>
+<text x="1600" y="117" class="chap">Ch. 49</text>
+</g>
+<g><title>Cal takes Aron to Kate&#x27;s house and reveals their mother: Consumed by hurt and jealousy, Cal leads Aron at night to Kate&#x27;s brothel and shows him that the madam is their mother. The revelation shatters the idealistic Aron.</title>
+<line x1="1790" y1="165" x2="1790" y2="205" class="stem"/>
+<circle cx="1790" cy="165" r="11" class="node focal"/>
+<text x="1790" y="227" class="title">Cal takes Aron to Kate&#x27;s</text>
+<text x="1790" y="245" class="title">house and reveals their</text>
+<text x="1790" y="263" class="title">mother</text>
+<text x="1790" y="281" class="chap">Ch. 49</text>
+</g>
+</svg>
+  </div>
+  <figcaption>Ten events the agent chose, leading to the moment Cal takes Aron to meet their mother.</figcaption>
+</figure>
 
-    input.addEventListener("animationend", function () {
-      input.classList.remove("is-wrong");
-    });
-  })();
-</script>
+        </div>
+      </details>
+      <details class="entry" open>
+        <summary class="entry-head"><h2 class="entry-title"><span class="entry-day">Day 3</span> Building M1</h2></summary>
+        <div class="entry-body">
+        <p>Before (M0): Claude picks 20 non-linear events. Draw plot line.<br>
+          After (M1): Claude chooses how many significant nonlinear events to keep, up to 30.</p>
+        <ol>
+          <li>Model proposes 30 significant events</li>
+          <li>(Human) grade 30 events as true/false</li>
+          <li>Model judges which true events to keep as significant, run x times until results consistent across runs.</li>
+          <li>Output graph via render.py from MVP</li>
+        </ol>
+        <p>First pass, the proposer was mostly accurate drawing from memory the events significant to the plot. I corrected minor hallucinated events, e.g. when it confused East of Eden's 1955 movie's edited plot vs. the actual book's events. I largely agreed with the judge's final filtered list.</p>
+        <figure class="eoe-graph">
+  <style>
+    .eoe-graph { position: relative; left: 50%; transform: translateX(-50%);
+      width: min(72rem, calc(100vw - 2rem)); margin: 2rem 0;
+      background: var(--bg); z-index: 1;
+      --lane: var(--notice-bg); --edge: var(--muted); --focal: #a3402a;
+      --t0: #557262; --t1: #7a5a86; --t2: #8a6a2e; --t3: #4f6f8f; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .eoe-graph { --focal: #e0806a;
+        --t0: #9dbba8; --t1: #c3a3cf; --t2: #d4b06a; --t3: #93b3d3; } }
+    :root[data-theme="dark"] .eoe-graph { --focal: #e0806a;
+      --t0: #9dbba8; --t1: #c3a3cf; --t2: #d4b06a; --t3: #93b3d3; }
+    .eoe-graph .eoe-scroll { overflow-x: auto; border-top: 1px solid var(--faint);
+      border-bottom: 1px solid var(--faint); }
+    .eoe-graph svg { display: block; }
+    .eoe-graph .lane0 { fill: var(--bg); }
+    .eoe-graph .lane1 { fill: var(--lane); }
+    .eoe-graph .lane-name { font-family: var(--sans); font-size: 13px; font-weight: 600; }
+    .eoe-graph .edge { fill: none; stroke: var(--edge); stroke-width: 1.5; opacity: .75; }
+    .eoe-graph .edge.cross { stroke-dasharray: 5 3; }
+    .eoe-graph .edge.focal { stroke: var(--focal); stroke-width: 2; opacity: 1; }
+    .eoe-graph .tip { fill: var(--edge); }
+    .eoe-graph .tip.focal { fill: var(--focal); }
+    .eoe-graph .node { stroke: var(--bg); stroke-width: 2; }
+    .eoe-graph .node.focal { fill: var(--focal); }
+    .eoe-graph .t0 { fill: var(--t0); } .eoe-graph .t1 { fill: var(--t1); }
+    .eoe-graph .t2 { fill: var(--t2); } .eoe-graph .t3 { fill: var(--t3); }
+    .eoe-graph text.title, .eoe-graph text.chap { text-anchor: middle; paint-order: stroke;
+      stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+    .eoe-graph text.title { fill: var(--text); font-family: var(--serif); font-size: 13px; }
+    .eoe-graph text.chap { fill: var(--muted); font-family: var(--sans); font-size: 11px; }
+    .eoe-graph figcaption { margin-top: 0.75rem; font-family: var(--sans); font-size: 0.8125rem;
+      color: var(--muted); }
+    .eoe-graph .eoe-table { overflow-x: auto; }
+    .eoe-graph table { border-collapse: collapse; width: 100%; font-size: 0.9rem; line-height: 1.5; }
+    .eoe-graph th, .eoe-graph td { text-align: left; vertical-align: top; padding: 0.6rem 0.5rem;
+      border-bottom: 1px solid var(--faint); }
+    .eoe-graph th { font-family: var(--sans); font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+    .eoe-graph td:nth-child(2) { min-width: 14rem; }
+    .eoe-graph td:last-child { min-width: 16rem; }
+  </style>
+  <div class="eoe-scroll">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3544 600" width="3544" height="600" role="img" aria-label="Cause-and-effect graph of 26 events in 4 story threads">
+<defs>
+<marker id="m1a-arrow" viewBox="0 0 10 10" refX="19" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="tip"/></marker>
+<marker id="m1a-arrow-focal" viewBox="0 0 10 10" refX="23" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="tip focal"/></marker>
+</defs>
+<rect x="0" y="0" width="3544" height="150" class="lane0"/>
+<text x="12" y="51" class="lane-name t0">Trask</text>
+<rect x="0" y="150" width="3544" height="150" class="lane1"/>
+<text x="12" y="201" class="lane-name t1">Cathy/Kate</text>
+<rect x="0" y="300" width="3544" height="150" class="lane0"/>
+<text x="12" y="351" class="lane-name t2">Hamilton</text>
+<rect x="0" y="450" width="3544" height="150" class="lane1"/>
+<text x="12" y="501" class="lane-name t3">Lee</text>
+<path d="M442,196 L574,196" class="edge" marker-end="url(#m1a-arrow)"><title>Cathy burns her parents&#x27; house and fakes her death → Mr. Edwards beats Cathy nearly to death</title></path>
+<path d="M574,196 L706,196" class="edge" marker-end="url(#m1a-arrow)"><title>Mr. Edwards beats Cathy nearly to death → Injured Cathy turns up at the Trask farmhouse</title></path>
+<path d="M310,46 C508,46 508,196 706,196" class="edge cross" marker-end="url(#m1a-arrow)"><title>Cyrus Trask dies leaving a large fortune → Injured Cathy turns up at the Trask farmhouse</title></path>
+<path d="M706,196 C772,196 772,46 838,46" class="edge cross" marker-end="url(#m1a-arrow)"><title>Injured Cathy turns up at the Trask farmhouse → Adam marries Cathy</title></path>
+<path d="M838,46 L970,46" class="edge" marker-end="url(#m1a-arrow)"><title>Adam marries Cathy → Adam buys the Bordoni ranch</title></path>
+<path d="M310,46 C310,0.666667 970,0.666667 970,46" class="edge" marker-end="url(#m1a-arrow)"><title>Cyrus Trask dies leaving a large fortune → Adam buys the Bordoni ranch</title></path>
+<path d="M178,346 C178,292.667 1102,292.667 1102,346" class="edge" marker-end="url(#m1a-arrow)"><title>Samuel Hamilton settles in the Salinas Valley → Samuel comes to plan Adam&#x27;s wells</title></path>
+<path d="M970,46 C1036,46 1036,346 1102,346" class="edge cross" marker-end="url(#m1a-arrow)"><title>Adam buys the Bordoni ranch → Samuel comes to plan Adam&#x27;s wells</title></path>
+<path d="M838,46 C1036,46 1036,346 1234,346" class="edge cross" marker-end="url(#m1a-arrow)"><title>Adam marries Cathy → Samuel delivers the twins and Cathy bites him</title></path>
+<path d="M970,46 C1102,46 1102,346 1234,346" class="edge cross" marker-end="url(#m1a-arrow)"><title>Adam buys the Bordoni ranch → Samuel delivers the twins and Cathy bites him</title></path>
+<path d="M1102,346 L1234,346" class="edge" marker-end="url(#m1a-arrow)"><title>Samuel comes to plan Adam&#x27;s wells → Samuel delivers the twins and Cathy bites him</title></path>
+<path d="M1234,346 C1300,346 1300,196 1366,196" class="edge cross" marker-end="url(#m1a-arrow)"><title>Samuel delivers the twins and Cathy bites him → Cathy shoots Adam and abandons the family</title></path>
+<path d="M1366,196 L1498,196" class="edge" marker-end="url(#m1a-arrow)"><title>Cathy shoots Adam and abandons the family → Cathy goes to work at Faye&#x27;s brothel as Kate</title></path>
+<path d="M1366,196 C1498,196 1498,346 1630,346" class="edge cross" marker-end="url(#m1a-arrow)"><title>Cathy shoots Adam and abandons the family → Samuel strikes Adam out of his stupor</title></path>
+<path d="M1102,346 C1102,306 1630,306 1630,346" class="edge" marker-end="url(#m1a-arrow)"><title>Samuel comes to plan Adam&#x27;s wells → Samuel strikes Adam out of his stupor</title></path>
+<path d="M178,346 C178,292.667 1762,292.667 1762,346" class="edge" marker-end="url(#m1a-arrow)"><title>Samuel Hamilton settles in the Salinas Valley → Samuel, aging after Una&#x27;s death, agrees to leave his ranch</title></path>
+<path d="M1762,346 L1894,346" class="edge" marker-end="url(#m1a-arrow)"><title>Samuel, aging after Una&#x27;s death, agrees to leave his ranch → Samuel tells Adam that Cathy runs a Salinas brothel</title></path>
+<path d="M1498,196 C1696,196 1696,346 1894,346" class="edge cross" marker-end="url(#m1a-arrow)"><title>Cathy goes to work at Faye&#x27;s brothel as Kate → Samuel tells Adam that Cathy runs a Salinas brothel</title></path>
+<path d="M1630,346 C1630,316.667 1894,316.667 1894,346" class="edge" marker-end="url(#m1a-arrow)"><title>Samuel strikes Adam out of his stupor → Samuel tells Adam that Cathy runs a Salinas brothel</title></path>
+<path d="M1102,346 C1102,295.333 1894,295.333 1894,346" class="edge" marker-end="url(#m1a-arrow)"><title>Samuel comes to plan Adam&#x27;s wells → Samuel tells Adam that Cathy runs a Salinas brothel</title></path>
+<path d="M1894,346 C1960,346 1960,46 2026,46" class="edge cross" marker-end="url(#m1a-arrow)"><title>Samuel tells Adam that Cathy runs a Salinas brothel → Adam confronts Kate and is freed of her</title></path>
+<path d="M2026,46 L2158,46" class="edge" marker-end="url(#m1a-arrow)"><title>Adam confronts Kate and is freed of her → Adam moves the family to Salinas</title></path>
+<path d="M310,46 C310,-7.33333 2290,-7.33333 2290,46" class="edge" marker-end="url(#m1a-arrow)"><title>Cyrus Trask dies leaving a large fortune → Adam&#x27;s iced-lettuce venture fails</title></path>
+<path d="M2158,46 L2290,46" class="edge" marker-end="url(#m1a-arrow)"><title>Adam moves the family to Salinas → Adam&#x27;s iced-lettuce venture fails</title></path>
+<path d="M2158,46 C2158,16.6667 2422,16.6667 2422,46" class="edge" marker-end="url(#m1a-arrow)"><title>Adam moves the family to Salinas → Aron turns to the church</title></path>
+<path d="M2158,46 C2158,11.3333 2554,11.3333 2554,46" class="edge" marker-end="url(#m1a-arrow)"><title>Adam moves the family to Salinas → Cal is picked up in a Chinatown raid</title></path>
+<path d="M2554,46 L2686,46" class="edge" marker-end="url(#m1a-arrow)"><title>Cal is picked up in a Chinatown raid → Cal shadows Kate around Salinas</title></path>
+<path d="M2026,46 C2026,0.666667 2686,0.666667 2686,46" class="edge" marker-end="url(#m1a-arrow)"><title>Adam confronts Kate and is freed of her → Cal shadows Kate around Salinas</title></path>
+<path d="M2290,46 C2620,46 2620,496 2950,496" class="edge cross" marker-end="url(#m1a-arrow)"><title>Adam&#x27;s iced-lettuce venture fails → Lee lends Cal five thousand dollars</title></path>
+<path d="M2290,46 C2290,-4.66667 3082,-4.66667 3082,46" class="edge" marker-end="url(#m1a-arrow)"><title>Adam&#x27;s iced-lettuce venture fails → Cal and Will Hamilton profit from beans</title></path>
+<path d="M2950,496 C3016,496 3016,46 3082,46" class="edge cross" marker-end="url(#m1a-arrow)"><title>Lee lends Cal five thousand dollars → Cal and Will Hamilton profit from beans</title></path>
+<path d="M2818,46 C2818,16.6667 3082,16.6667 3082,46" class="edge" marker-end="url(#m1a-arrow)"><title>America enters the war; Adam joins the draft board → Cal and Will Hamilton profit from beans</title></path>
+<path d="M2422,46 C2422,-4.66667 3214,-4.66667 3214,46" class="edge" marker-end="url(#m1a-arrow)"><title>Aron turns to the church → Aron leaves for Stanford</title></path>
+<path d="M3082,46 C3082,16.6667 3346,16.6667 3346,46" class="edge" marker-end="url(#m1a-arrow)"><title>Cal and Will Hamilton profit from beans → Adam rejects Cal&#x27;s Thanksgiving gift</title></path>
+<path d="M2818,46 C2818,6 3346,6 3346,46" class="edge" marker-end="url(#m1a-arrow)"><title>America enters the war; Adam joins the draft board → Adam rejects Cal&#x27;s Thanksgiving gift</title></path>
+<path d="M3214,46 L3346,46" class="edge" marker-end="url(#m1a-arrow)"><title>Aron leaves for Stanford → Adam rejects Cal&#x27;s Thanksgiving gift</title></path>
+<path d="M3346,46 L3478,46" class="edge focal" marker-end="url(#m1a-arrow-focal)"><title>Adam rejects Cal&#x27;s Thanksgiving gift → Cal takes Aron to Kate&#x27;s house</title></path>
+<path d="M2686,46 C2686,-4.66667 3478,-4.66667 3478,46" class="edge focal" marker-end="url(#m1a-arrow-focal)"><title>Cal shadows Kate around Salinas → Cal takes Aron to Kate&#x27;s house</title></path>
+<path d="M1498,196 C2488,196 2488,46 3478,46" class="edge cross focal" marker-end="url(#m1a-arrow-focal)"><title>Cathy goes to work at Faye&#x27;s brothel as Kate → Cal takes Aron to Kate&#x27;s house</title></path>
+<path d="M2422,46 C2422,-7.33333 3478,-7.33333 3478,46" class="edge focal" marker-end="url(#m1a-arrow-focal)"><title>Aron turns to the church → Cal takes Aron to Kate&#x27;s house</title></path>
+<path d="M1630,346 C2554,346 2554,46 3478,46" class="edge cross focal" marker-end="url(#m1a-arrow-focal)"><title>Samuel strikes Adam out of his stupor → Cal takes Aron to Kate&#x27;s house</title></path>
+<path d="M1102,346 C2290,346 2290,46 3478,46" class="edge cross focal" marker-end="url(#m1a-arrow-focal)"><title>Samuel comes to plan Adam&#x27;s wells → Cal takes Aron to Kate&#x27;s house</title></path>
+<path d="M1366,196 C2422,196 2422,46 3478,46" class="edge cross focal" marker-end="url(#m1a-arrow-focal)"><title>Cathy shoots Adam and abandons the family → Cal takes Aron to Kate&#x27;s house</title></path>
+<g><title>Samuel Hamilton settles in the Salinas Valley (ch. 2): Samuel and Liza Hamilton come from Ireland and take up poor hill land near King City. Samuel becomes the valley&#x27;s inventive, generous blacksmith, well-digger and midwife.
+Caused by: (starts a thread)</title>
+<circle cx="178" cy="346" r="8" class="node t2"/>
+<text x="178" y="376" class="title">Samuel Hamilton</text>
+<text x="178" y="392" class="title">settles in the</text>
+<text x="178" y="408" class="title">Salinas Valley</text>
+<text x="178" y="424" class="chap">Ch. 2</text>
+</g>
+<g><title>Cyrus Trask dies leaving a large fortune (ch. 7): Adam learns that their father has died and left the brothers a surprisingly large fortune of doubtful origin. The money keeps both brothers comfortable on the Connecticut farm.
+Caused by: (starts a thread)</title>
+<circle cx="310" cy="46" r="8" class="node t0"/>
+<text x="310" y="76" class="title">Cyrus Trask dies</text>
+<text x="310" y="92" class="title">leaving a large</text>
+<text x="310" y="108" class="title">fortune</text>
+<text x="310" y="124" class="chap">Ch. 7</text>
+</g>
+<g><title>Cathy burns her parents&#x27; house and fakes her death (ch. 8): Teenaged Cathy Ames sets fire to her family home, killing her parents, and makes it look as if she died too. She then leaves town under a new identity.
+Caused by: (starts a thread)</title>
+<circle cx="442" cy="196" r="8" class="node t1"/>
+<text x="442" y="226" class="title">Cathy burns her</text>
+<text x="442" y="242" class="title">parents&#x27; house</text>
+<text x="442" y="258" class="title">and fakes her</text>
+<text x="442" y="274" class="title">death</text>
+<text x="442" y="290" class="chap">Ch. 8</text>
+</g>
+<g><title>Mr. Edwards beats Cathy nearly to death (ch. 9): Cathy becomes the mistress of the whoremaster Mr. Edwards and manipulates him. When he learns of her schemes he beats her savagely and leaves her for dead.
+Caused by: Cathy burns her parents&#x27; house and fakes her death</title>
+<circle cx="574" cy="196" r="8" class="node t1"/>
+<text x="574" y="226" class="title">Mr. Edwards beats</text>
+<text x="574" y="242" class="title">Cathy nearly to</text>
+<text x="574" y="258" class="title">death</text>
+<text x="574" y="274" class="chap">Ch. 9</text>
+</g>
+<g><title>Injured Cathy turns up at the Trask farmhouse (ch. 10): The broken, bloodied Cathy reaches the Trask brothers&#x27; door. Adam is tender toward her while Charles distrusts her at once.
+Caused by: Mr. Edwards beats Cathy nearly to death, Cyrus Trask dies leaving a large fortune</title>
+<circle cx="706" cy="196" r="8" class="node t1"/>
+<text x="706" y="226" class="title">Injured Cathy</text>
+<text x="706" y="242" class="title">turns up at the</text>
+<text x="706" y="258" class="title">Trask farmhouse</text>
+<text x="706" y="274" class="chap">Ch. 10</text>
+</g>
+<g><title>Adam marries Cathy (ch. 11): Infatuated, Adam marries the recovering Cathy despite Charles&#x27;s warnings. He announces he will take her to California.
+Caused by: Injured Cathy turns up at the Trask farmhouse</title>
+<circle cx="838" cy="46" r="8" class="node t0"/>
+<text x="838" y="76" class="title">Adam marries</text>
+<text x="838" y="92" class="title">Cathy</text>
+<text x="838" y="108" class="chap">Ch. 11</text>
+</g>
+<g><title>Adam buys the Bordoni ranch (ch. 13): Adam brings the pregnant Cathy to the Salinas Valley and buys the old Bordoni place near King City. He dreams of making a garden of it.
+Caused by: Adam marries Cathy, Cyrus Trask dies leaving a large fortune</title>
+<circle cx="970" cy="46" r="8" class="node t0"/>
+<text x="970" y="76" class="title">Adam buys the</text>
+<text x="970" y="92" class="title">Bordoni ranch</text>
+<text x="970" y="108" class="chap">Ch. 13</text>
+</g>
+<g><title>Samuel comes to plan Adam&#x27;s wells (ch. 15): Samuel comes to the Trask place to plan wells for Adam. He begins a lasting friendship with Adam and feels uneasy about Cathy.
+Caused by: Samuel Hamilton settles in the Salinas Valley, Adam buys the Bordoni ranch</title>
+<circle cx="1102" cy="346" r="8" class="node t2"/>
+<text x="1102" y="376" class="title">Samuel comes to</text>
+<text x="1102" y="392" class="title">plan Adam&#x27;s wells</text>
+<text x="1102" y="408" class="chap">Ch. 15</text>
+</g>
+<g><title>Samuel delivers the twins and Cathy bites him (ch. 17): Samuel delivers Cathy&#x27;s twin boys. Cathy, cold and hostile, bites his hand savagely during the birth.
+Caused by: Adam marries Cathy, Adam buys the Bordoni ranch, Samuel comes to plan Adam&#x27;s wells</title>
+<circle cx="1234" cy="346" r="8" class="node t2"/>
+<text x="1234" y="376" class="title">Samuel delivers</text>
+<text x="1234" y="392" class="title">the twins and</text>
+<text x="1234" y="408" class="title">Cathy bites him</text>
+<text x="1234" y="424" class="chap">Ch. 17</text>
+</g>
+<g><title>Cathy shoots Adam and abandons the family (ch. 17): A week after the birth Cathy announces she is leaving. When Adam tries to stop her she shoots him in the shoulder and walks out on her husband and sons.
+Caused by: Samuel delivers the twins and Cathy bites him</title>
+<circle cx="1366" cy="196" r="8" class="node t1"/>
+<text x="1366" y="226" class="title">Cathy shoots Adam</text>
+<text x="1366" y="242" class="title">and abandons the</text>
+<text x="1366" y="258" class="title">family</text>
+<text x="1366" y="274" class="chap">Ch. 17</text>
+</g>
+<g><title>Cathy goes to work at Faye&#x27;s brothel as Kate (ch. 19): Cathy arrives in Salinas and joins Faye&#x27;s house under the name Kate. She quickly makes herself Faye&#x27;s favorite.
+Caused by: Cathy shoots Adam and abandons the family</title>
+<circle cx="1498" cy="196" r="8" class="node t1"/>
+<text x="1498" y="226" class="title">Cathy goes to</text>
+<text x="1498" y="242" class="title">work at Faye&#x27;s</text>
+<text x="1498" y="258" class="title">brothel as Kate</text>
+<text x="1498" y="274" class="chap">Ch. 19</text>
+</g>
+<g><title>Samuel strikes Adam out of his stupor (ch. 22): Finding the twins still unnamed over a year after Cathy left, Samuel provokes and strikes the numb Adam. Adam begins to wake to his sons.
+Caused by: Cathy shoots Adam and abandons the family, Samuel comes to plan Adam&#x27;s wells</title>
+<circle cx="1630" cy="346" r="8" class="node t2"/>
+<text x="1630" y="376" class="title">Samuel strikes</text>
+<text x="1630" y="392" class="title">Adam out of his</text>
+<text x="1630" y="408" class="title">stupor</text>
+<text x="1630" y="424" class="chap">Ch. 22</text>
+</g>
+<g><title>Samuel, aging after Una&#x27;s death, agrees to leave his ranch (ch. 23): Grief over his daughter Una&#x27;s death ages Samuel, and his children arrange to move him off the ranch. He makes farewell visits.
+Caused by: Samuel Hamilton settles in the Salinas Valley</title>
+<circle cx="1762" cy="346" r="8" class="node t2"/>
+<text x="1762" y="376" class="title">Samuel, aging</text>
+<text x="1762" y="392" class="title">after Una&#x27;s</text>
+<text x="1762" y="408" class="title">death, agrees to</text>
+<text x="1762" y="424" class="title">leave his ranch</text>
+<text x="1762" y="440" class="chap">Ch. 23</text>
+</g>
+<g><title>Samuel tells Adam that Cathy runs a Salinas brothel (ch. 24): After Lee explains timshel, Samuel tells Adam that Cathy is Kate, keeper of a Salinas whorehouse. He hopes the truth will free Adam.
+Caused by: Samuel, aging after Una&#x27;s death, agrees to leave his ranch, Cathy goes to work at Faye&#x27;s brothel as Kate, Samuel strikes Adam out of his stupor, Samuel comes to plan Adam&#x27;s wells</title>
+<circle cx="1894" cy="346" r="8" class="node t2"/>
+<text x="1894" y="376" class="title">Samuel tells Adam</text>
+<text x="1894" y="392" class="title">that Cathy runs a</text>
+<text x="1894" y="408" class="title">Salinas brothel</text>
+<text x="1894" y="424" class="chap">Ch. 24</text>
+</g>
+<g><title>Adam confronts Kate and is freed of her (ch. 25): After Samuel&#x27;s funeral Adam visits Kate&#x27;s brothel. She mocks him and boasts of blackmail photographs, and Adam leaves released from his obsession.
+Caused by: Samuel tells Adam that Cathy runs a Salinas brothel</title>
+<circle cx="2026" cy="46" r="8" class="node t0"/>
+<text x="2026" y="76" class="title">Adam confronts</text>
+<text x="2026" y="92" class="title">Kate and is freed</text>
+<text x="2026" y="108" class="title">of her</text>
+<text x="2026" y="124" class="chap">Ch. 25</text>
+</g>
+<g><title>Adam moves the family to Salinas (ch. 35): Adam moves the household to Salinas for the boys&#x27; schooling. The twins now live in the same town as Kate&#x27;s house.
+Caused by: Adam confronts Kate and is freed of her</title>
+<circle cx="2158" cy="46" r="8" class="node t0"/>
+<text x="2158" y="76" class="title">Adam moves the</text>
+<text x="2158" y="92" class="title">family to Salinas</text>
+<text x="2158" y="108" class="chap">Ch. 35</text>
+</g>
+<g><title>Adam&#x27;s iced-lettuce venture fails (ch. 36): Adam ships Salinas lettuce east packed in ice, but delays let it rot. He loses much of his fortune and is mocked in town.
+Caused by: Cyrus Trask dies leaving a large fortune, Adam moves the family to Salinas</title>
+<circle cx="2290" cy="46" r="8" class="node t0"/>
+<text x="2290" y="76" class="title">Adam&#x27;s iced-</text>
+<text x="2290" y="92" class="title">lettuce venture</text>
+<text x="2290" y="108" class="title">fails</text>
+<text x="2290" y="124" class="chap">Ch. 36</text>
+</g>
+<g><title>Aron turns to the church (ch. 37): Aron takes up fervent religion under the Episcopal minister Mr. Rolf and talks of chastity and the priesthood. His purity makes him fragile.
+Caused by: Adam moves the family to Salinas</title>
+<circle cx="2422" cy="46" r="8" class="node t0"/>
+<text x="2422" y="76" class="title">Aron turns to the</text>
+<text x="2422" y="92" class="title">church</text>
+<text x="2422" y="108" class="chap">Ch. 37</text>
+</g>
+<g><title>Cal is picked up in a Chinatown raid (ch. 38): Cal, prowling at night, is caught in a police raid on a Chinatown gambling house. Adam comes to take him home.
+Caused by: Adam moves the family to Salinas</title>
+<circle cx="2554" cy="46" r="8" class="node t0"/>
+<text x="2554" y="76" class="title">Cal is picked up</text>
+<text x="2554" y="92" class="title">in a Chinatown</text>
+<text x="2554" y="108" class="title">raid</text>
+<text x="2554" y="124" class="chap">Ch. 38</text>
+</g>
+<g><title>Cal shadows Kate around Salinas (ch. 39): Cal secretly follows Kate on her outings to study the woman who is his mother. He grows obsessed with whether her evil is in him.
+Caused by: Cal is picked up in a Chinatown raid, Adam confronts Kate and is freed of her</title>
+<circle cx="2686" cy="46" r="8" class="node t0"/>
+<text x="2686" y="76" class="title">Cal shadows Kate</text>
+<text x="2686" y="92" class="title">around Salinas</text>
+<text x="2686" y="108" class="chap">Ch. 39</text>
+</g>
+<g><title>America enters the war; Adam joins the draft board (ch. 42): The United States enters World War I and Adam serves on the local draft board. Sending young men to war weighs on his conscience.
+Caused by: (starts a thread)</title>
+<circle cx="2818" cy="46" r="8" class="node t0"/>
+<text x="2818" y="76" class="title">America enters</text>
+<text x="2818" y="92" class="title">the war; Adam</text>
+<text x="2818" y="108" class="title">joins the draft</text>
+<text x="2818" y="124" class="title">board</text>
+<text x="2818" y="140" class="chap">Ch. 42</text>
+</g>
+<g><title>Lee lends Cal five thousand dollars (ch. 43): Lee lends Cal money from the savings he once meant for a bookstore. Cal wants to earn back what Adam lost.
+Caused by: Adam&#x27;s iced-lettuce venture fails</title>
+<circle cx="2950" cy="496" r="8" class="node t3"/>
+<text x="2950" y="526" class="title">Lee lends Cal</text>
+<text x="2950" y="542" class="title">five thousand</text>
+<text x="2950" y="558" class="title">dollars</text>
+<text x="2950" y="574" class="chap">Ch. 43</text>
+</g>
+<g><title>Cal and Will Hamilton profit from beans (ch. 43): Cal partners with Will Hamilton to contract beans cheaply and sell them high to wartime buyers. Cal clears about fifteen thousand dollars.
+Caused by: Adam&#x27;s iced-lettuce venture fails, Lee lends Cal five thousand dollars, America enters the war; Adam joins the draft board</title>
+<circle cx="3082" cy="46" r="8" class="node t0"/>
+<text x="3082" y="76" class="title">Cal and Will</text>
+<text x="3082" y="92" class="title">Hamilton profit</text>
+<text x="3082" y="108" class="title">from beans</text>
+<text x="3082" y="124" class="chap">Ch. 43</text>
+</g>
+<g><title>Aron leaves for Stanford (ch. 45): Aron graduates early and goes to Stanford, to Adam&#x27;s great pride. Away from home he idealizes his family and Abra.
+Caused by: Aron turns to the church</title>
+<circle cx="3214" cy="46" r="8" class="node t0"/>
+<text x="3214" y="76" class="title">Aron leaves for</text>
+<text x="3214" y="92" class="title">Stanford</text>
+<text x="3214" y="108" class="chap">Ch. 45</text>
+</g>
+<g><title>Adam rejects Cal&#x27;s Thanksgiving gift (ch. 49): At Thanksgiving Cal gives Adam the money. Adam refuses it as profit from war and says he would rather have the goodness Aron has.
+Caused by: Cal and Will Hamilton profit from beans, America enters the war; Adam joins the draft board, Aron leaves for Stanford</title>
+<circle cx="3346" cy="46" r="8" class="node t0"/>
+<text x="3346" y="76" class="title">Adam rejects</text>
+<text x="3346" y="92" class="title">Cal&#x27;s</text>
+<text x="3346" y="108" class="title">Thanksgiving gift</text>
+<text x="3346" y="124" class="chap">Ch. 49</text>
+</g>
+<g><title>Cal takes Aron to Kate&#x27;s house (ch. 49): That night Cal leads Aron to Kate&#x27;s brothel and shows him that the madam is their mother. Aron is shattered.
+Caused by: Adam rejects Cal&#x27;s Thanksgiving gift, Cal shadows Kate around Salinas, Cathy goes to work at Faye&#x27;s brothel as Kate, Aron turns to the church, Samuel strikes Adam out of his stupor, Samuel comes to plan Adam&#x27;s wells, Cathy shoots Adam and abandons the family</title>
+<circle cx="3478" cy="46" r="12" class="node focal"/>
+<text x="3478" y="76" class="title">Cal takes Aron to</text>
+<text x="3478" y="92" class="title">Kate&#x27;s house</text>
+<text x="3478" y="108" class="chap">Ch. 49</text>
+</g>
+</svg>
+  </div>
+  <figcaption>First pass, plot significance: 26 of 34 events kept, 88% agreement across 5 runs. Lanes are story threads, time runs left to right, and arrows run from cause to effect (red into the reveal). Hover a point for its summary.</figcaption>
+</figure>
+        <p>The judge agreed 88% of the time across 5 runs. Acceptable, but I realized the premise is wrong. While this graph explains how events transpired, it doesn't explain why Caleb acted the way he did.</p>
+        <p>I revised both proposer and judge to filter for events significant to the character instead. Focus on events that built his perception of self, motivations, perpetual fear, and introspection.</p>
+        <p>Based on the second collection I selected a few in my own notes for what the judge should be keeping then passed it to the judge to filter. Most events I selected were also included by the judge. These were events that mostly happened to Caleb Trask indirectly or directly.</p>
+        <ul>
+          <li><strong>Cal discovers that the madam Kate is his mother</strong> (ch. 38, judge kept 5/5): Cal learns his mother is a brothel keeper and fears her evil is in him.</li>
+          <li><strong>Adam rejects Cal&#x27;s money and praises Aron instead</strong> (ch. 49, judge kept 5/5): Cal feels utterly rejected by his father and blinded by jealousy of Aron.</li>
+        </ul>
+        <p>The judge kept 8 more events that I cut, for example:</p>
+        <ul>
+          <li><strong>Cal prays not to be mean</strong> (ch. 27, judge kept 4/5): the prayer shows Cal already fearing he is mean by nature and aching to be loved like Aron.</li>
+          <li><strong>Lee tells Cal the truth and that his choices are his own</strong> (ch. 39, judge kept 5/5): Cal acts without the excuse of bad blood and carries full responsibility.</li>
+        </ul>
+        <p>Judge disagreed with me on events based on what Caleb came to believe about himself. This is a gap I missed and I think the judge is correct. I hypothesize a person's inner state can self-manifest, and in his case, fester the more he confirmed ingrained beliefs he had about himself.</p>
+        <figure class="eoe-graph">
+  
+  <div class="eoe-scroll">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2620 450" width="2620" height="450" role="img" aria-label="Cause-and-effect graph of 19 events in 3 story threads">
+<defs>
+<marker id="m1b-arrow" viewBox="0 0 10 10" refX="19" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="tip"/></marker>
+<marker id="m1b-arrow-focal" viewBox="0 0 10 10" refX="23" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="tip focal"/></marker>
+</defs>
+<rect x="0" y="0" width="2620" height="150" class="lane0"/>
+<text x="12" y="51" class="lane-name t0">Trask</text>
+<rect x="0" y="150" width="2620" height="150" class="lane1"/>
+<text x="12" y="201" class="lane-name t1">Cathy/Kate</text>
+<rect x="0" y="300" width="2620" height="150" class="lane0"/>
+<text x="12" y="351" class="lane-name t3">Lee</text>
+<path d="M178,196 L310,196" class="edge" marker-end="url(#m1b-arrow)"><title>Cathy Ames is introduced as a born monster → Cathy shoots Adam and abandons the twins</title></path>
+<path d="M310,196 L442,196" class="edge" marker-end="url(#m1b-arrow)"><title>Cathy shoots Adam and abandons the twins → Cathy becomes &#x27;Kate&#x27; at Faye&#x27;s brothel in Salinas</title></path>
+<path d="M310,196 C442,196 442,46 574,46" class="edge cross" marker-end="url(#m1b-arrow)"><title>Cathy shoots Adam and abandons the twins → Adam sinks into apathy while Lee raises the twins</title></path>
+<path d="M574,46 C640,46 640,346 706,346" class="edge cross" marker-end="url(#m1b-arrow)"><title>Adam sinks into apathy while Lee raises the twins → Lee&#x27;s elders arrive at &#x27;timshel&#x27;, thou mayest</title></path>
+<path d="M178,196 C508,196 508,46 838,46" class="edge cross" marker-end="url(#m1b-arrow)"><title>Cathy Ames is introduced as a born monster → Abra visits and warms to Aron&#x27;s gift</title></path>
+<path d="M838,46 L970,46" class="edge" marker-end="url(#m1b-arrow)"><title>Abra visits and warms to Aron&#x27;s gift → Abra tells Aron his mother is not dead</title></path>
+<path d="M310,196 C640,196 640,46 970,46" class="edge cross" marker-end="url(#m1b-arrow)"><title>Cathy shoots Adam and abandons the twins → Abra tells Aron his mother is not dead</title></path>
+<path d="M838,46 C838,16.6667 1102,16.6667 1102,46" class="edge" marker-end="url(#m1b-arrow)"><title>Abra visits and warms to Aron&#x27;s gift → Cal prays not to be mean</title></path>
+<path d="M970,46 L1102,46" class="edge" marker-end="url(#m1b-arrow)"><title>Abra tells Aron his mother is not dead → Cal prays not to be mean</title></path>
+<path d="M442,196 C838,196 838,46 1234,46" class="edge cross" marker-end="url(#m1b-arrow)"><title>Cathy becomes &#x27;Kate&#x27; at Faye&#x27;s brothel in Salinas → Adam&#x27;s iced-lettuce venture fails</title></path>
+<path d="M574,46 C574,0.666667 1234,0.666667 1234,46" class="edge" marker-end="url(#m1b-arrow)"><title>Adam sinks into apathy while Lee raises the twins → Adam&#x27;s iced-lettuce venture fails</title></path>
+<path d="M970,46 C970,11.3333 1366,11.3333 1366,46" class="edge" marker-end="url(#m1b-arrow)"><title>Abra tells Aron his mother is not dead → Aron turns devout and plans the ministry</title></path>
+<path d="M442,196 C970,196 970,46 1498,46" class="edge cross" marker-end="url(#m1b-arrow)"><title>Cathy becomes &#x27;Kate&#x27; at Faye&#x27;s brothel in Salinas → Cal discovers that the madam Kate is his mother</title></path>
+<path d="M970,46 C970,6 1498,6 1498,46" class="edge" marker-end="url(#m1b-arrow)"><title>Abra tells Aron his mother is not dead → Cal discovers that the madam Kate is his mother</title></path>
+<path d="M1102,46 C1102,11.3333 1498,11.3333 1498,46" class="edge" marker-end="url(#m1b-arrow)"><title>Cal prays not to be mean → Cal discovers that the madam Kate is his mother</title></path>
+<path d="M1498,46 C1564,46 1564,346 1630,346" class="edge cross" marker-end="url(#m1b-arrow)"><title>Cal discovers that the madam Kate is his mother → Lee tells Cal the truth and that his choices are his own</title></path>
+<path d="M706,346 C706,292.667 1630,292.667 1630,346" class="edge" marker-end="url(#m1b-arrow)"><title>Lee&#x27;s elders arrive at &#x27;timshel&#x27;, thou mayest → Lee tells Cal the truth and that his choices are his own</title></path>
+<path d="M574,46 C1102,46 1102,346 1630,346" class="edge cross" marker-end="url(#m1b-arrow)"><title>Adam sinks into apathy while Lee raises the twins → Lee tells Cal the truth and that his choices are his own</title></path>
+<path d="M1498,46 C1498,16.6667 1762,16.6667 1762,46" class="edge" marker-end="url(#m1b-arrow)"><title>Cal discovers that the madam Kate is his mother → Cal follows Kate and confronts her</title></path>
+<path d="M1630,346 C1696,346 1696,46 1762,46" class="edge cross" marker-end="url(#m1b-arrow)"><title>Lee tells Cal the truth and that his choices are his own → Cal follows Kate and confronts her</title></path>
+<path d="M442,196 C1168,196 1168,46 1894,46" class="edge cross" marker-end="url(#m1b-arrow)"><title>Cathy becomes &#x27;Kate&#x27; at Faye&#x27;s brothel in Salinas → Adam serves on the wartime draft board</title></path>
+<path d="M574,46 C574,-7.33333 1894,-7.33333 1894,46" class="edge" marker-end="url(#m1b-arrow)"><title>Adam sinks into apathy while Lee raises the twins → Adam serves on the wartime draft board</title></path>
+<path d="M1234,46 C1234,-4.66667 2026,-4.66667 2026,46" class="edge" marker-end="url(#m1b-arrow)"><title>Adam&#x27;s iced-lettuce venture fails → Cal partners with Will Hamilton to grow beans</title></path>
+<path d="M1894,46 L2026,46" class="edge" marker-end="url(#m1b-arrow)"><title>Adam serves on the wartime draft board → Cal partners with Will Hamilton to grow beans</title></path>
+<path d="M1366,46 C1366,-4.66667 2158,-4.66667 2158,46" class="edge" marker-end="url(#m1b-arrow)"><title>Aron turns devout and plans the ministry → Adam glows with pride over Aron&#x27;s college plans</title></path>
+<path d="M2026,46 C2026,16.6667 2290,16.6667 2290,46" class="edge" marker-end="url(#m1b-arrow)"><title>Cal partners with Will Hamilton to grow beans → Cal makes a fortune and plans a Thanksgiving gift</title></path>
+<path d="M1630,346 C1960,346 1960,46 2290,46" class="edge cross" marker-end="url(#m1b-arrow)"><title>Lee tells Cal the truth and that his choices are his own → Cal makes a fortune and plans a Thanksgiving gift</title></path>
+<path d="M2158,46 L2290,46" class="edge" marker-end="url(#m1b-arrow)"><title>Adam glows with pride over Aron&#x27;s college plans → Cal makes a fortune and plans a Thanksgiving gift</title></path>
+<path d="M2290,46 L2422,46" class="edge" marker-end="url(#m1b-arrow)"><title>Cal makes a fortune and plans a Thanksgiving gift → Adam rejects Cal&#x27;s money and praises Aron instead</title></path>
+<path d="M1894,46 C1894,6 2422,6 2422,46" class="edge" marker-end="url(#m1b-arrow)"><title>Adam serves on the wartime draft board → Adam rejects Cal&#x27;s money and praises Aron instead</title></path>
+<path d="M2158,46 C2158,16.6667 2422,16.6667 2422,46" class="edge" marker-end="url(#m1b-arrow)"><title>Adam glows with pride over Aron&#x27;s college plans → Adam rejects Cal&#x27;s money and praises Aron instead</title></path>
+<path d="M2422,46 L2554,46" class="edge focal" marker-end="url(#m1b-arrow-focal)"><title>Adam rejects Cal&#x27;s money and praises Aron instead → Cal takes Aron to Kate&#x27;s house and shows him their mother</title></path>
+<path d="M1630,346 C2092,346 2092,46 2554,46" class="edge cross focal" marker-end="url(#m1b-arrow-focal)"><title>Lee tells Cal the truth and that his choices are his own → Cal takes Aron to Kate&#x27;s house and shows him their mother</title></path>
+<path d="M1762,46 C1762,-4.66667 2554,-4.66667 2554,46" class="edge focal" marker-end="url(#m1b-arrow-focal)"><title>Cal follows Kate and confronts her → Cal takes Aron to Kate&#x27;s house and shows him their mother</title></path>
+<path d="M1366,46 C1366,-7.33333 2554,-7.33333 2554,46" class="edge focal" marker-end="url(#m1b-arrow-focal)"><title>Aron turns devout and plans the ministry → Cal takes Aron to Kate&#x27;s house and shows him their mother</title></path>
+<path d="M574,46 C574,-7.33333 2554,-7.33333 2554,46" class="edge focal" marker-end="url(#m1b-arrow-focal)"><title>Adam sinks into apathy while Lee raises the twins → Cal takes Aron to Kate&#x27;s house and shows him their mother</title></path>
+<g><title>Cathy Ames is introduced as a born monster (ch. 8): The narrator presents young Cathy as someone born without ordinary conscience, who manipulates everyone around her. She ends her childhood by burning down her parents&#x27; house with them inside and vanishing.
+Caused by: (starts a thread)</title>
+<circle cx="178" cy="196" r="8" class="node t1"/>
+<text x="178" y="226" class="title">Cathy Ames is</text>
+<text x="178" y="242" class="title">introduced as a</text>
+<text x="178" y="258" class="title">born monster</text>
+<text x="178" y="274" class="chap">Ch. 8</text>
+</g>
+<g><title>Cathy shoots Adam and abandons the twins (ch. 17): About a week after the birth, Cathy tells Adam she is leaving. When he tries to stop her, she shoots him in the shoulder and walks out, leaving the infants behind.
+Caused by: Cathy Ames is introduced as a born monster</title>
+<circle cx="310" cy="196" r="8" class="node t1"/>
+<text x="310" y="226" class="title">Cathy shoots Adam</text>
+<text x="310" y="242" class="title">and abandons the</text>
+<text x="310" y="258" class="title">twins</text>
+<text x="310" y="274" class="chap">Ch. 17</text>
+</g>
+<g><title>Cathy becomes &#x27;Kate&#x27; at Faye&#x27;s brothel in Salinas (ch. 19): Cathy goes to Salinas, takes the name Kate, and joins Faye&#x27;s brothel. She soon makes herself indispensable to its owner.
+Caused by: Cathy shoots Adam and abandons the twins</title>
+<circle cx="442" cy="196" r="8" class="node t1"/>
+<text x="442" y="226" class="title">Cathy becomes</text>
+<text x="442" y="242" class="title">&#x27;Kate&#x27; at Faye&#x27;s</text>
+<text x="442" y="258" class="title">brothel in</text>
+<text x="442" y="274" class="title">Salinas</text>
+<text x="442" y="290" class="chap">Ch. 19</text>
+</g>
+<g><title>Adam sinks into apathy while Lee raises the twins (ch. 22): For more than a year Adam barely looks at his sons and has not even named them. Lee, the Chinese servant, cares for the boys.
+Caused by: Cathy shoots Adam and abandons the twins</title>
+<circle cx="574" cy="46" r="8" class="node t0"/>
+<text x="574" y="76" class="title">Adam sinks into</text>
+<text x="574" y="92" class="title">apathy while Lee</text>
+<text x="574" y="108" class="title">raises the twins</text>
+<text x="574" y="124" class="chap">Ch. 22</text>
+</g>
+<g><title>Lee&#x27;s elders arrive at &#x27;timshel&#x27;, thou mayest (ch. 24): Lee reports that his elderly Chinese relatives studied Hebrew to understand the Cain verse. They concluded the word timshel means &#x27;thou mayest&#x27;, so humans can choose to overcome sin.
+Caused by: Adam sinks into apathy while Lee raises the twins</title>
+<circle cx="706" cy="346" r="8" class="node t3"/>
+<text x="706" y="376" class="title">Lee&#x27;s elders</text>
+<text x="706" y="392" class="title">arrive at</text>
+<text x="706" y="408" class="title">&#x27;timshel&#x27;, thou</text>
+<text x="706" y="424" class="title">mayest</text>
+<text x="706" y="440" class="chap">Ch. 24</text>
+</g>
+<g><title>Abra visits and warms to Aron&#x27;s gift (ch. 27): A rainstorm strands young Abra and her parents at the Trask place. Abra is drawn to gentle Aron, who gives her a rabbit, and Cal feels pushed aside.
+Caused by: Cathy Ames is introduced as a born monster</title>
+<circle cx="838" cy="46" r="8" class="node t0"/>
+<text x="838" y="76" class="title">Abra visits and</text>
+<text x="838" y="92" class="title">warms to Aron&#x27;s</text>
+<text x="838" y="108" class="title">gift</text>
+<text x="838" y="124" class="chap">Ch. 27</text>
+</g>
+<g><title>Abra tells Aron his mother is not dead (ch. 27): Abra repeats what she overheard from her parents: the twins&#x27; mother did not die but ran away. This challenges the story the boys were told.
+Caused by: Abra visits and warms to Aron&#x27;s gift, Cathy shoots Adam and abandons the twins</title>
+<circle cx="970" cy="46" r="8" class="node t0"/>
+<text x="970" y="76" class="title">Abra tells Aron</text>
+<text x="970" y="92" class="title">his mother is not</text>
+<text x="970" y="108" class="title">dead</text>
+<text x="970" y="124" class="chap">Ch. 27</text>
+</g>
+<g><title>Cal prays not to be mean (ch. 27): Alone at night, Cal asks God to make him like Aron and not mean. He promises anything if people will love him.
+Caused by: Abra visits and warms to Aron&#x27;s gift, Abra tells Aron his mother is not dead</title>
+<circle cx="1102" cy="46" r="8" class="node t0"/>
+<text x="1102" y="76" class="title">Cal prays not to</text>
+<text x="1102" y="92" class="title">be mean</text>
+<text x="1102" y="108" class="chap">Ch. 27</text>
+</g>
+<g><title>Adam&#x27;s iced-lettuce venture fails (ch. 36): Adam ships lettuce east in iced railroad cars, but the train is delayed and the crop rots. He loses much of his fortune and becomes a laughingstock in Salinas.
+Caused by: Cathy becomes &#x27;Kate&#x27; at Faye&#x27;s brothel in Salinas, Adam sinks into apathy while Lee raises the twins</title>
+<circle cx="1234" cy="46" r="8" class="node t0"/>
+<text x="1234" y="76" class="title">Adam&#x27;s iced-</text>
+<text x="1234" y="92" class="title">lettuce venture</text>
+<text x="1234" y="108" class="title">fails</text>
+<text x="1234" y="124" class="chap">Ch. 36</text>
+</g>
+<g><title>Aron turns devout and plans the ministry (ch. 37): Under the influence of the Episcopal minister Mr. Rolf, Aron becomes intensely religious. He talks of becoming a minister and swears off worldly impurity.
+Caused by: Abra tells Aron his mother is not dead</title>
+<circle cx="1366" cy="46" r="8" class="node t0"/>
+<text x="1366" y="76" class="title">Aron turns devout</text>
+<text x="1366" y="92" class="title">and plans the</text>
+<text x="1366" y="108" class="title">ministry</text>
+<text x="1366" y="124" class="chap">Ch. 37</text>
+</g>
+<g><title>Cal discovers that the madam Kate is his mother (ch. 38): Restless and sleepless, Cal roams Salinas at night. Through the town&#x27;s talk he learns that Kate, owner of the notorious brothel, is his mother.
+Caused by: Cathy becomes &#x27;Kate&#x27; at Faye&#x27;s brothel in Salinas, Abra tells Aron his mother is not dead, Cal prays not to be mean</title>
+<circle cx="1498" cy="46" r="8" class="node t0"/>
+<text x="1498" y="76" class="title">Cal discovers</text>
+<text x="1498" y="92" class="title">that the madam</text>
+<text x="1498" y="108" class="title">Kate is his</text>
+<text x="1498" y="124" class="title">mother</text>
+<text x="1498" y="140" class="chap">Ch. 38</text>
+</g>
+<g><title>Lee tells Cal the truth and that his choices are his own (ch. 39): When Cal presses him, Lee confirms who Kate is and tells him the story of his parents. Lee insists Cal has his father in him as well, and that whatever he does will be his own doing, not his mother&#x27;s.
+Caused by: Cal discovers that the madam Kate is his mother, Lee&#x27;s elders arrive at &#x27;timshel&#x27;, thou mayest, Adam sinks into apathy while Lee raises the twins</title>
+<circle cx="1630" cy="346" r="8" class="node t3"/>
+<text x="1630" y="376" class="title">Lee tells Cal the</text>
+<text x="1630" y="392" class="title">truth and that</text>
+<text x="1630" y="408" class="title">his choices are</text>
+<text x="1630" y="424" class="title">his own</text>
+<text x="1630" y="440" class="chap">Ch. 39</text>
+</g>
+<g><title>Cal follows Kate and confronts her (ch. 40): Cal trails Kate on her walks until she brings him into her room. She tries to draw him in as someone like herself and asks about Aron. Cal sees her fear and leaves no longer afraid of her.
+Caused by: Cal discovers that the madam Kate is his mother, Lee tells Cal the truth and that his choices are his own</title>
+<circle cx="1762" cy="46" r="8" class="node t0"/>
+<text x="1762" y="76" class="title">Cal follows Kate</text>
+<text x="1762" y="92" class="title">and confronts her</text>
+<text x="1762" y="108" class="chap">Ch. 40</text>
+</g>
+<g><title>Adam serves on the wartime draft board (ch. 42): When America enters the First World War, Adam sits on the local draft board. He is troubled by the young men he sends off to fight.
+Caused by: Cathy becomes &#x27;Kate&#x27; at Faye&#x27;s brothel in Salinas, Adam sinks into apathy while Lee raises the twins</title>
+<circle cx="1894" cy="46" r="8" class="node t0"/>
+<text x="1894" y="76" class="title">Adam serves on</text>
+<text x="1894" y="92" class="title">the wartime draft</text>
+<text x="1894" y="108" class="title">board</text>
+<text x="1894" y="124" class="chap">Ch. 42</text>
+</g>
+<g><title>Cal partners with Will Hamilton to grow beans (ch. 43): Cal goes to the businessman Will Hamilton with a plan to grow and sell beans while wartime demand is high. He hopes to rebuild the money his father lost.
+Caused by: Adam&#x27;s iced-lettuce venture fails, Adam serves on the wartime draft board</title>
+<circle cx="2026" cy="46" r="8" class="node t0"/>
+<text x="2026" y="76" class="title">Cal partners with</text>
+<text x="2026" y="92" class="title">Will Hamilton to</text>
+<text x="2026" y="108" class="title">grow beans</text>
+<text x="2026" y="124" class="chap">Ch. 43</text>
+</g>
+<g><title>Adam glows with pride over Aron&#x27;s college plans (ch. 44): Aron pushes to finish high school early and enter Stanford. Adam is openly proud of him.
+Caused by: Aron turns devout and plans the ministry</title>
+<circle cx="2158" cy="46" r="8" class="node t0"/>
+<text x="2158" y="76" class="title">Adam glows with</text>
+<text x="2158" y="92" class="title">pride over Aron&#x27;s</text>
+<text x="2158" y="108" class="title">college plans</text>
+<text x="2158" y="124" class="chap">Ch. 44</text>
+</g>
+<g><title>Cal makes a fortune and plans a Thanksgiving gift (ch. 48): The bean deal earns Cal fifteen thousand dollars. He gets the money in new bills and plans to give it to Adam at Thanksgiving dinner, when Aron is home.
+Caused by: Cal partners with Will Hamilton to grow beans, Lee tells Cal the truth and that his choices are his own, Adam glows with pride over Aron&#x27;s college plans</title>
+<circle cx="2290" cy="46" r="8" class="node t0"/>
+<text x="2290" y="76" class="title">Cal makes a</text>
+<text x="2290" y="92" class="title">fortune and plans</text>
+<text x="2290" y="108" class="title">a Thanksgiving</text>
+<text x="2290" y="124" class="title">gift</text>
+<text x="2290" y="140" class="chap">Ch. 48</text>
+</g>
+<g><title>Adam rejects Cal&#x27;s money and praises Aron instead (ch. 49): At Thanksgiving, Cal gives Adam the money. Adam refuses it as profit made from the war while he sends boys to die. He says the gift he wants is a good life like Aron&#x27;s.
+Caused by: Cal makes a fortune and plans a Thanksgiving gift, Adam serves on the wartime draft board, Adam glows with pride over Aron&#x27;s college plans</title>
+<circle cx="2422" cy="46" r="8" class="node t0"/>
+<text x="2422" y="76" class="title">Adam rejects</text>
+<text x="2422" y="92" class="title">Cal&#x27;s money and</text>
+<text x="2422" y="108" class="title">praises Aron</text>
+<text x="2422" y="124" class="title">instead</text>
+<text x="2422" y="140" class="chap">Ch. 49</text>
+</g>
+<g><title>Cal takes Aron to Kate&#x27;s house and shows him their mother (ch. 49): That night, still raw from his father&#x27;s rejection, Cal leads Aron to Kate&#x27;s brothel. There he confronts his brother with the truth that its madam is their mother, Cathy.
+Caused by: Adam rejects Cal&#x27;s money and praises Aron instead, Lee tells Cal the truth and that his choices are his own, Cal follows Kate and confronts her, Aron turns devout and plans the ministry, Adam sinks into apathy while Lee raises the twins</title>
+<circle cx="2554" cy="46" r="12" class="node focal"/>
+<text x="2554" y="76" class="title">Cal takes Aron to</text>
+<text x="2554" y="92" class="title">Kate&#x27;s house and</text>
+<text x="2554" y="108" class="title">shows him their</text>
+<text x="2554" y="124" class="title">mother</text>
+<text x="2554" y="140" class="chap">Ch. 49</text>
+</g>
+</svg>
+  </div>
+  <figcaption>Second pass, character significance: 19 of 30 events kept, 98% agreement across 5 runs.</figcaption>
+</figure>
+        <p>Comparing the two graphs, the former could have made a best seller, but the latter built the moral spine of East of Eden.</p>
+        <p>Future</p>
+        <ul>
+          <li>I often asked why Caleb is the way he is and Aron is the way he is. They are twins, the events that led to Caleb's decision are the same that led to Aron's. Why are they so different?</li>
+        </ul>
+        </div>
+      </details>
+    </div>
+  </article>
+</section>
